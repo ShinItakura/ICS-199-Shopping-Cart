@@ -124,7 +124,11 @@
       $_SESSION['userid'] = $user->id; 
       $_SESSION['logged_in'] = true; 
       $_SESSION['role'] = $user->role;
-      header('Location: products.php');
+      if ($user->role == 'Customer') {
+        header('Location: products.php');
+      } else if ($user->role == 'Admin') {
+        header('Location: admin.php');
+      }
       die();
     } else {
       print "Invalid login";
