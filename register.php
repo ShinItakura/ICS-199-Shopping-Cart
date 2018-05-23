@@ -1,5 +1,3 @@
-<!doctype html>
-
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -36,8 +34,8 @@
         <option value="QC">Quebec</option>
         <option value="SK">Saskatchewan</option>
         <option value="YT">Yukon</option>
-    </select>
-    <br/>
+      </select>
+      <br/>
       Country: <select name="country">
         <option value="Canada">Canada</option>
         <option value="USA">USA</option>
@@ -63,7 +61,11 @@
         $country = mysqli_real_escape_string($db, $_POST['country']);
         $postcode = str_replace(' ', '', mysqli_real_escape_string($db, $_POST['postcode']));
         $province = mysqli_real_escape_string($db, $_POST['province']);
-        $apt = mysqli_real_escape_string($db, $_POST['apt']);
+        if ($_POST['apt'] != '') {
+          $apt = (int) mysqli_real_escape_string($db, $_POST['apt']);
+        } else {
+          $apt = "NULL";
+        }
         $query = "INSERT INTO USERS (email, password, first, last, street_address, city, country, postcode, province, apt_no) VALUES ('$email', '$pw_hash', '$first', '$last', '$street', '$city', '$country', '$postcode', '$province', $apt);";
         mysqli_query($db, $query) or die(mysqli_error($db));
         mysqli_close($db);
