@@ -1,4 +1,5 @@
 <?php
+// testing git update with this text
 //setup some variables
 $action = array();
 $action['result'] = null;
