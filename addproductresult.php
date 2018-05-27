@@ -26,9 +26,9 @@
 	echo "<p>$axle</p>";
 	
 	$db = mysqli_connect('localhost', 'cst107','446287', 'ICS199Group13_dev');
-	$query = "insert into ITEM (name, description, price, thumbnail, add_date, shape, color, material, manufacturer, axles)
-	values('$name', '$desc', CAST('$price' AS DECIMAL(5,2)), '$pic', NOW(), '$shape', '$color', '$mat', '$manu', '$axle');";
-
+	$query = "insert into ITEM (name, AXLE_id, MATERIAL_id, SHAPE_id, price, image, color, manufacturer, description)
+	values('$name', '$axle', '$mat', '$shape', CAST('$price' AS DECIMAL(5,2)), '$pic', '$color', '$manu', '$desc');";
+	//NOW(), 
 if (@mysqli_query($db, $query)) {
 	print '<p>The product has been successfully added.</p>';
 } else {
