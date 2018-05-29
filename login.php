@@ -124,9 +124,9 @@
       $_SESSION['userid'] = $user->id; 
       $_SESSION['logged_in'] = true; 
       $_SESSION['role'] = $user->role;
-      if ($user->role == 'Customer') {
+      if ($user->role == 'customer') {
         header('Location: products.php');
-      } else if ($user->role == 'Admin') {
+      } else if ($user->role == 'admin') {
         header('Location: admin.php');
       }
       die();
