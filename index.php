@@ -31,6 +31,12 @@ if (!$connect) {
 			<option value="2">Fixed</option>
 			<option value="3">Transaxle</option>
 		</select> 
+		Material: <select name="mat">
+			<option value="0">All</option>
+			<option value="1">Metal</option>
+			<option value="2">Plastic</option>
+			<option value="3">Wood</option>
+		</select> 
 		Shape: <select name="shape">
 			<option value="0">All</option>
 			<option value="1">Butterfly</option>
@@ -45,12 +51,20 @@ if (!$connect) {
     <?php
 //	ini_set('display_errors',1);
 	$axleChoice = $_GET['axle'];
+	$matChoice = $_GET['mat'];
 	$shapeChoice = $_GET['shape'];
 	$query ="SELECT * FROM ITEM";
 	$previous = false;
 	if ($axleChoice != 0) {
-	//	$query = "SELECT * FROM ITEM WHERE AXLE_id = $axleChoice";
 		$query .= " WHERE AXLE_id = $axleChoice";
+		$previous = true;
+	}
+	if ($matChoice != 0) {
+		if ($previous) {
+			$query .= " AND MATERIAL_id = $matChoice";
+		} else {
+			$query .= " WHERE MATERIAL_id = $matChoice";
+		}
 		$previous = true;
 	}
 	if ($shapeChoice != 0) {
@@ -84,6 +98,8 @@ if (!$connect) {
             </div>
             <?php
 		}
+	} else {		
+		echo "<h3> No products found <h3>";
 	}
 
   // Shopping Cart

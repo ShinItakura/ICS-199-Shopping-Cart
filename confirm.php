@@ -6,8 +6,6 @@
 <input type="submit" name=submit value="Submit"/>
 </form>
 <?php
-// testing git update with this text
-//setup some variables
 // enter username password hostname database name table name to connect to mySQL server table
 $user = "cst136"; 
 $password = "451722"; 
@@ -16,7 +14,7 @@ $dbase = "ICS199Group13_dev";
 $table = "USER"; 
 
 //email address from where you want to send order confirmation from
-$from= 'shintaro.itakura28@camosun.bc.ca';
+$from= "shintaro.itakura28@camosun.bc.ca";
 
 //retrieves subject title and body 
 $subject= $_POST['subject'];
@@ -29,7 +27,7 @@ $db= mysqli_connect($host,$user,$password, $dbase)
 or die("Unable to select database");
 
 //mySQL query to retrieve order data
-$query= "SELECT * FROM $ORDER";
+$query= "SELECT * FROM $ORDERITEM";
 $result= mysqli_query ($db, $query) 
 or die ('Error querying database.');
 
