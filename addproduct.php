@@ -1,3 +1,12 @@
+<?php
+  ini_set('display_errors',1);
+  session_start();
+  if ($_SESSION['role'] != 'admin') {
+    header('Location: login.php');
+    die();
+  }
+?>
+
 <html>
 <head>
 <title>Add Product</title>
