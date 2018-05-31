@@ -128,7 +128,11 @@
         $_SESSION['logged_in'] = true; 
         $_SESSION['role'] = $user->role;
         if ($user->role == 'customer') {
-          header('Location: index.php');
+          if (endsWith($_SERVER['HTTP_REFERER'], 'cart.php')) {
+            header('Location: cart.php');
+          } else {
+            header('Location: index.php');
+          }
         } else if ($user->role == 'admin') {
           header('Location: addproduct.php');
         }
@@ -137,5 +141,11 @@
         print "Invalid login";
       }  
     }
+  }
+
+  function endsWith($str, $substr) {
+    $length = strlen($substr);
+    return $length === 0 ||
+        (substr($str, -length) === $substr);
   }
 ?>
