@@ -24,31 +24,33 @@ ini_set('display_errors',1);
 include ('mysqli_connect.php');
  
 // Default query for this page:
-$q = "SELECT fname, lname, id from USER u, ORDER o Where u.id = o.USER_id;";
-
-
-
+//$q = "SELECT fname, lname, id from USER u, ORDER o Where u.id = o.USER_id;";
+$q = "SELECT * FROM USER;";
 // Create the table head:
+
 echo '<table border="0" width="90%" cellspacing="3" cellpadding="3" align="center">
 	<tr>
-		<td align="left" width="20%"><b>First name</b></td>
-		<td align="left" width="20%"><b>Last name</b></td>
         <td align="left" width="20%"><b>User ID</b></td>
-		<td align="left" width="20%"><b>Order Date</b></td>
+        <td align="left" width="20%"><b>Order ID</b></td>
+        <td align="left" width="20%"><b>Order Date</b></td>
+        <td align="left" width="20%"><b>Product Name</b></td>
+        <td align="left" width="20%"><b>Quantity</b></td>
 	</tr>';
 
 // Display all the prints, linked to URLs:
 $r = mysqli_query ($dbc, $q);
 while ($row = mysqli_fetch_array ($r, MYSQLI_ASSOC)) {
-
+    // Display user name: 
+    echo "<h1>{$row['fname']} {$row['lname']}</h1>";
 	// Display each record:
-	echo "\t<tr>
-		<td align=\"left\">{$row['fname']}</td>
-		<td align=\"left\">{$row['lname']}</td>
+	/*echo "\t<tr>
         <td align=\"left\">{$row['id']}</td>
+        <td align=\"left\">{$row['ORDER_id']}</td>
         <td align=\"left\">{$row['orderDate']}</td>
-	</tr>\n";
-
+        <td align=\"left\">{$row['name']}</td>
+        <td align=\"left\">{$row['quantity']}</td>
+	</tr>\n";*/
+    
 } // End of while loop.
 
 echo '</table>';
