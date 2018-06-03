@@ -6,22 +6,27 @@
 
   <body>
     <form action="register.php" method="post">
-      First Name: <input type="text" name="first">
+      First Name: <input type="text" name="first" required maxlength=45>
       <br/>
-      Last Name: <input type="text" name="last"> 
+      Last Name: <input type="text" name="last" required maxlength=45> 
       <br/>
-      Email Address: <input type="email" name="email">
+      Email Address: <input type="email" name="email" required maxlength=255>
       <br/>
-      Password: <input type="password" name="password">
+      Password: <input type="password" name="password" required minlength=8>
       <br/>
+<<<<<<< HEAD
       Address: <input type="text" name="street">
+=======
+      Address: <input type="text" name="street" required maxlength=45>
+>>>>>>> origin/master
       <br/>
       Country: <select name="country">
         <option value="Canada">Canada</option>
         <option value="USA">USA</option>
       </select>
       <br/>
-      Postal Code: <input type="text" name="postcode">
+      Postal Code: <input type="text" name="postcode" required minlength=5 maxlength=7 
+       pattern="[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ] ?[0-9][ABCEGHJKLMNPRSTVWXYZ][0-9]|[0-9]{5}">
       <br/>
       
     <input type="submit" value="Sign Up">

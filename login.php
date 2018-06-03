@@ -113,25 +113,39 @@
 
 </html>
 <?php
-  ini_set('display_errors',1);
   if (isset($_POST['email'])) {
     $db = new mysqli("localhost", "cst177", "461570", "ICS199Group13_dev");
-    $query = "SELECT * FROM USERS WHERE email = '{$_POST['email']}';";
+    $query = "SELECT * FROM USER WHERE email = '{$_POST['email']}';";
     $result = $db->query($query);
-    $user = $result->fetch_object();
-    if (password_verify($_POST['password'], $user->password)) {
-      print "Successful Login";
-      $_SESSION['userid'] = $user->id; 
-      $_SESSION['logged_in'] = true; 
-      $_SESSION['role'] = $user->role;
-      if ($user->role == 'Customer') {
-        header('Location: products.php');
-      } else if ($user->role == 'Admin') {
-        header('Location: admin.php');
-      }
-      die();
+    if ($result == false) {
+      print "Invalid Login";
     } else {
-      print "Invalid login";
-    }  
+      $user = $result->fetch_object();
+      if (password_verify($_POST['password'], $user->password)) {
+        print "Successful Login";
+        session_start();
+        $_SESSION['userid'] = $user->id; 
+        $_SESSION['logged_in'] = true; 
+        $_SESSION['role'] = $user->role;
+        if ($user->role == 'customer') {
+          if (endsWith($_SERVER['HTTP_REFERER'], 'cart.php')) {
+            header('Location: cart.php');
+          } else {
+            header('Location: index.php');
+          }
+        } else if ($user->role == 'admin') {
+          header('Location: addproduct.php');
+        }
+        die(); 
+      } else {
+        print "Invalid login";
+      }  
+    }
+  }
+
+  function endsWith($str, $substr) {
+    $length = strlen($substr);
+    return $length === 0 ||
+        (substr($str, -length) === $substr);
   }
 ?>
