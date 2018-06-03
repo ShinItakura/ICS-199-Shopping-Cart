@@ -24,7 +24,7 @@ ini_set('display_errors',1);
 include ('mysqli_connect.php');
  
 // Default query for this page:
-//$q = "SELECT fname, lname, id from USER u, ORDER o Where u.id = o.USER_id;";
+//$q = "SELECT fname, lname, id, ORDER_id, orderDate, name, quantity from USER u, ORDER o, ORDERITEM oi, ITEM i WHERE u.id = o.USER_id;";
 $q = "SELECT * FROM USER;";
 // Create the table head:
 
