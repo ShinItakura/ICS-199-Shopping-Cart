@@ -60,8 +60,11 @@
 	echo "<p>$axle</p>";
 	
 	$db = mysqli_connect('localhost', 'cst107','446287', 'ICS199Group13_dev');
+<<<<<<< HEAD
+=======
 //	$validate = "select name from ITEM";
 //	$names = array	
+>>>>>>> origin/master
 	$query = "insert into ITEM (name, AXLE_id, MATERIAL_id, SHAPE_id, price, image, color, manufacturer, description)
 	values('$name', '$axle', '$mat', '$shape', CAST('$price' AS DECIMAL(5,2)), '$pic', '$color', '$manu', '$desc');";
 	//NOW(), 
