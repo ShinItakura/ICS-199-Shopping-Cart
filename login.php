@@ -114,9 +114,9 @@
 </html>
 <?php
   if (isset($_POST['email'])) {
-    $db = new mysqli("localhost", "cst177", "461570", "ICS199Group13_dev");
+    include('mysqli_connect.php');
     $query = "SELECT * FROM USER WHERE email = '{$_POST['email']}';";
-    $result = $db->query($query);
+    $result = $dbc->query($query);
     if ($result == false) {
       print "Invalid Login";
     } else {
