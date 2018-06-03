@@ -1,5 +1,4 @@
 <?php
-<<<<<<< HEAD
 session_start(); //start session
 include("config.inc.php"); //include config file
 //include 'header.php';
@@ -190,29 +189,6 @@ $item .= '</ul></div>';
 
 echo $item;
 ?>
-</body>
-=======
-session_start();
-$db_host = 'localhost'; // Server Name
-$db_user = 'cst107'; // Username
-$db_pass = '446287'; // Password
-$db_name = 'ICS199Group13_dev'; // Database Name
-
-$connect = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
-if (!$connect) {
-	die ('Failed to connect to MySQL: ' . mysqli_connect_error());
-}
-?>
-<!doctype html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Products - Yo Yo Ma's House of Yo-Yo's</title>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-</head>
 <body>
 
 	<div class="container" style="width:60%;">
@@ -338,5 +314,4 @@ if (!$connect) {
     </div>
     </div>
  </body>
->>>>>>> origin/master
 </html>
