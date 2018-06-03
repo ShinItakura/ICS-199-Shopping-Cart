@@ -37,7 +37,7 @@ echo '<table border="0" width="90%" cellspacing="3" cellpadding="3" align="cente
         <td align="left" width="20%"><b>Quantity</b></td>
 	</tr>';
 
-// Display all the prints, linked to URLs:
+// Display all the prints
 $r = mysqli_query ($dbc, $q);
 while ($row = mysqli_fetch_array ($r, MYSQLI_ASSOC)) {
     // Display user name: 
@@ -54,6 +54,7 @@ while ($row = mysqli_fetch_array ($r, MYSQLI_ASSOC)) {
 } // End of while loop.
 
 echo '</table>';
+echo '<p><a href="index.php">return to home page</a>';
 mysqli_close($dbc);
 //include ('includes/footer.html');
 ?>
