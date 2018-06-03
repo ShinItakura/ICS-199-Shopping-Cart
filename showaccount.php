@@ -1,6 +1,6 @@
 <head>
     <title>My Account</title>
-    <style>
+    <style>/* basic css that needs to be moved to a styles.css file later*/
             table {
                 font-family: arial, sans-serif;
                 border-collapse: collapse;
