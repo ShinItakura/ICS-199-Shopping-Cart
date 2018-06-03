@@ -14,7 +14,11 @@
       <br/>
       Password: <input type="password" name="password" required minlength=8>
       <br/>
+<<<<<<< HEAD
+      Address: <input type="text" name="street">
+=======
       Address: <input type="text" name="street" required maxlength=45>
+>>>>>>> origin/master
       <br/>
       Country: <select name="country">
         <option value="Canada">Canada</option>

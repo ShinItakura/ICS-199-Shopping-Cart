@@ -6,6 +6,31 @@
 <input type="submit" name=submit value="Submit"/>
 </form>
 <?php
+<<<<<<< HEAD
+// testing git update with this text
+//setup some variables
+// enter username password hostname database name table name to connect to mySQL server table
+$user = "user_name"; 
+$password = "password"; 
+$host = "host_name"; 
+$dbase = "database_name"; 
+$table = "table_name"; 
+
+//email address from where you want to send order confirmation from
+$from= 'email_address';
+
+//retrieves subject title and body 
+$subject= $_POST['subject'];
+$body= $_POST['body'];
+
+// connect to mySQL server
+$dbc= mysqli_connect($host,$user,$password, $dbase) 
+or die("Unable to select database");
+
+//mySQL query to retrieve order data
+$query= "SELECT * FROM $table";
+$result= mysqli_query ($dbc, $query) 
+=======
 // enter username password hostname database name table name to connect to mySQL server table
 $user = "cst136"; 
 $password = "451722"; 
@@ -29,12 +54,18 @@ or die("Unable to select database");
 //mySQL query to retrieve order data
 $query= "SELECT * FROM $ORDERITEM";
 $result= mysqli_query ($db, $query) 
+>>>>>>> origin/master
 or die ('Error querying database.');
 
 //fetches email list from database
 while ($row = mysqli_fetch_array($result)) {
+<<<<<<< HEAD
+$first_name= $row['first_name'];
+$last_name= $row['last_name'];
+=======
 $firstname= $row['fname'];
 $lastname= $row['lname'];
+>>>>>>> origin/master
 $email= $row['email'];
 
 //write email
@@ -44,5 +75,9 @@ echo 'Email sent to: ' . $email. '<br>';
 }
 
 //close database
+<<<<<<< HEAD
+mysqli_close($dbc);
+=======
 mysqli_close($db);
+>>>>>>> origin/master
 ?>
