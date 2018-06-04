@@ -9,10 +9,16 @@ setlocale(LC_MONETARY,"en_US"); // US national format (see : http://php.net/mone
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Review Your Cart Before Buying</title>
 <link href="style/style.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link href="style/style.css" rel="stylesheet" type="text/css">
+
 </head>
 <body>
 <h3 style="text-align:center">Review Your Cart Before Buying</h3>
 <?php
+ini_set('display_error',1);
+
 if(isset($_SESSION["products"]) && count($_SESSION["products"])>0){
 	$total 			= 0;
 	$list_tax 		= '';
@@ -23,8 +29,6 @@ if(isset($_SESSION["products"]) && count($_SESSION["products"])>0){
 		$quantity = $product["quantity"];
 		$price = $product["price"];
 		$id = $product["id"];
-		// $product_color = $product["product_color"];
-		// $product_size = $product["product_size"];
 
 		$item_price 	= sprintf("%01.2f",($price * $quantity));  // price x qty = total item price
 
@@ -32,6 +36,8 @@ if(isset($_SESSION["products"]) && count($_SESSION["products"])>0){
 
 		$subtotal 		= ($price * $quantity); //Multiply item quantity * price
 		$total 			= ($total + $subtotal); //Add up to total price
+
+	
 	}
 
 	$grand_total = $total + $shipping_cost; //grand total
@@ -53,9 +59,17 @@ if(isset($_SESSION["products"]) && count($_SESSION["products"])>0){
 	$cart_box .= "</ul>";
 
 	echo $cart_box;
+
+        
+
 }else{
 	echo "Your Cart is empty";
 }
 ?>
+<div class="b">
+<button class="btn-checkout"><a href="index.php">Continue Shopping<i class="fa fa-cart-plus"></i></button></a>
+<button class="btn-checkout">Check Out<i class="fa fa-cart-arrow-down"></i></button>
+</div>
+
 </body>
 </html>

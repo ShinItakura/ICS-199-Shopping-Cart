@@ -1,12 +1,14 @@
 <?php
 session_start(); //start session
-include_once("config.inc.php"); //include config file
-setlocale(LC_MONETARY,"en_US"); // US national format (see : http://php.net/money_format)
+include_once("config.inc.php");   //include config file
+setlocale(LC_MONETARY,"en_US");   // US national format (see : http://php.net/money_format)
+
+
 ############# add products to session #########################
 if(isset($_POST["id"]))
 {
 	foreach($_POST as $key => $value){
-		$new_product[$key] = filter_var($value, FILTER_SANITIZE_STRING); //create a new product array
+		$new_product[$key] = filter_var($value, FILTER_SANITIZE_STRING);    //create a new product array
 	}
 
 	//we need to get product name and price from database.
@@ -30,10 +32,12 @@ if(isset($_POST["id"]))
 		$_SESSION["products"][$new_product['id']] = $new_product;	//update products with new item array
 	}
 
- 	$total_items = count($_SESSION["products"]); //count total items
-	die(json_encode(array('items'=>$total_items))); //output json
+ 	$total_items = count($_SESSION["products"]);        //count total items
+	die(json_encode(array('items'=>$total_items)));     //output json
 
 }
+
+
 
 ################## list products in cart ###################
 if(isset($_POST["load_cart"]) && $_POST["load_cart"]==1)
@@ -63,6 +67,8 @@ if(isset($_POST["load_cart"]) && $_POST["load_cart"]==1)
 		die("Your Cart is empty"); //we have empty cart
 	}
 }
+
+
 
 ################# remove item from shopping cart ################
 if(isset($_GET["remove_code"]) && isset($_SESSION["products"]))
