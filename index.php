@@ -1,6 +1,6 @@
 <?php
 session_start(); //start session
-include("config.inc.php"); //include config file
+include('mysqli_connect.php');
 //include 'header.php';
 //include 'nav.php';
 
@@ -152,7 +152,7 @@ if ($previous) {
 	$query .= " WHERE SHAPE_id = $shapeChoice";
 }
 }
-$result = mysqli_query($mysqli_conn, $query);
+$result = mysqli_query($dbc, $query);
 
 
 //Display fetched records as you please
