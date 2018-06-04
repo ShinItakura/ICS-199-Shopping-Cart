@@ -168,13 +168,7 @@ $item .= <<<EOT
      <div>Price : {$currency} {$row["price"]}<div>
 <div class="item-box">
 	<div> Qty :
-    <select name="quantity">
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
-    </select>
+    <input type="number" min="0" value="1" name="quantity" style="width: 5em;" required>
 	</div>
     <input name="id" type="hidden" value="{$row["id"]}">
     <button type="submit">Add to Cart</button>
