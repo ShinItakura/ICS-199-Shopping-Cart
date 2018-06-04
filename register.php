@@ -14,11 +14,7 @@
       <br/>
       Password: <input type="password" name="password" required minlength=8>
       <br/>
-<<<<<<< HEAD
-      Address: <input type="text" name="street">
-=======
       Address: <input type="text" name="street" required maxlength=45>
->>>>>>> origin/master
       <br/>
       Country: <select name="country">
         <option value="Canada">Canada</option>
@@ -32,6 +28,7 @@
     <input type="submit" value="Sign Up">
     
     <?php
+      include('mysqli_connect.php');
       ini_set('display_errors',1);
       /*function recordExists($table, $where, $mysqli{
         $query = "SELECT * FROM `$table` WHERE $where;
@@ -41,19 +38,18 @@
             }
       }*/
       if (isset($_POST['password'])) {
-        $db = mysqli_connect('localhost', 'cst177', '461570', 'ICS199Group13_dev');
-        mysqli_set_charset($db, 'utf8');
+        mysqli_set_charset($dbc, 'utf8');
         $pw_hash = password_hash($_POST['password'], PASSWORD_BCRYPT);
-        $email = mysqli_real_escape_string($db, $_POST['email']);
-        $pw_hash = mysqli_real_escape_string($db, $pw_hash);
-        $first = mysqli_real_escape_string($db, $_POST['first']);
-        $last = mysqli_real_escape_string($db, $_POST['last']);
-        $street = mysqli_real_escape_string($db, $_POST['street']);
-        $country = mysqli_real_escape_string($db, $_POST['country']);
-        $postcode = str_replace(' ', '', mysqli_real_escape_string($db, $_POST['postcode']));
+        $email = mysqli_real_escape_string($dbc, $_POST['email']);
+        $pw_hash = mysqli_real_escape_string($dbc, $pw_hash);
+        $first = mysqli_real_escape_string($dbc, $_POST['first']);
+        $last = mysqli_real_escape_string($dbc, $_POST['last']);
+        $street = mysqli_real_escape_string($dbc, $_POST['street']);
+        $country = mysqli_real_escape_string($dbc, $_POST['country']);
+        $postcode = str_replace(' ', '', mysqli_real_escape_string($dbc, $_POST['postcode']));
         $query = "INSERT INTO USER (fname, lname, password, email, address, country, postcode, role) VALUES ('$first', '$last', '$pw_hash', '$email', '$street', '$country', '$postcode', 'customer');";
-        mysqli_query($db, $query) or die(mysqli_error($db));
-        mysqli_close($db);
+        mysqli_query($dbc, $query) or die(mysqli_error($dbc));
+        mysqli_close($dbc);
       }
     ?>
   </body>  
