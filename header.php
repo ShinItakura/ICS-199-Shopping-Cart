@@ -36,6 +36,3 @@
 			</div>
 		</div>
 
-<?php
-include 'nav.php';
-?>
