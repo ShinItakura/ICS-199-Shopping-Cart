@@ -44,6 +44,10 @@ p.c {
 		font-size: 150%;
 }
 
+p.d {
+    width: 1000px;
+    text-align: left;
+}
 .btn {
     background-color: Red; /* Blue background */
     border: none; /* Remove borders */
