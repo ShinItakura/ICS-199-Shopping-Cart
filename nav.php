@@ -1,25 +1,33 @@
 
-
-
+<!--Dropdown in nav bar-->
 <div class="w3-container">
-
-
 	<div class="w3-bar w3-light-grey" style="height: 70px;">
 	    <p></p>
-	    <p></p>
-
 		<a href="#" class="w3-bar-item w3-button">Home</a>
 		<a href="#" class="w3-bar-item w3-button">Shop</a>
 		<div class="w3-dropdown-hover">
 			<button class="w3-button">Sign in</button>
 			<div class="w3-dropdown-content w3-card-4">
-				<a href="#" class="w3-bar-item w3-button">Log in</a>
-				<a href="#" class="w3-bar-item w3-button">My account</a>
-				<a href="#" class="w3-bar-item w3-button">Register</a>
-				<a href="#" class="w3-bar-item w3-button">Administrator</a>
+
+                 <!--Modal-->
+				 <a href="#" class="w3-bar-item w3-button" data-toggle="modal" href="javascript:void(0)" onclick="openLoginModal();">Log in</a>
+				 <a href="#" class="w3-bar-item w3-button" data-toggle="modal" href="javascript:void(0)" onclick="openRegisterModal();">Register</a>
+				 
 			</div>
 		</div>
+
+
+<!--This script is for the mini shopping cart in nav bar-->
+<link href="bootstrap3/css/bootstrap.css" rel="stylesheet" />
+<link href="style/login-register.css" rel="stylesheet" />
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
 <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+<script src="jquery/jquery-1.10.2.js" type="text/javascript"></script>
+<script src="bootstrap3/js/bootstrap.js" type="text/javascript"></script>
+<script src="js/login-register.js" type="text/javascript"></script>
+
+
+
 <script>
 $(document).ready(function(){
 		$(".form-item").submit(function(e){
@@ -75,8 +83,7 @@ $(document).ready(function(){
 
 <body>
 
-
-
+<!--mini shopping cart in nav bar-->
 <a href="#"  class="cart-box" id="cart-info" title="View Cart">
 <?php
 if(isset($_SESSION["products"])){
@@ -93,6 +100,59 @@ if(isset($_SESSION["products"])){
     <div id="shopping-cart-results" >
     </div>
 </div>
-
-
 </div>
+
+
+
+<!--modal login sign up -->
+       
+         
+		 <div class="modal fade login" id="loginModal">
+		      <div class="modal-dialog login animated">
+    		      <div class="modal-content">
+    		         <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Login with</h4>
+                    </div>
+                    <div class="modal-body">  
+                        <div class="box">
+                             <div class="content">
+                                
+                                <div class="error"></div>
+                                <div class="form loginBox">
+                                    <form method="post" action="/login" accept-charset="UTF-8">
+                                    <input id="email" class="form-control" type="text" placeholder="Email" name="email">
+                                    <input id="password" class="form-control" type="password" placeholder="Password" name="password">
+                                    <input class="btn btn-default btn-login" type="button" value="Login" onclick="loginAjax()">
+                                    </form>
+                                </div>
+                             </div>
+                        </div>
+                        <div class="box">
+                            <div class="content registerBox" style="display:none;">
+                             <div class="form">
+                                <form method="post" html="{:multipart=>true}" data-remote="true" action="/register" accept-charset="UTF-8">
+                                <input id="email" class="form-control" type="text" placeholder="Email" name="email">
+                                <input id="password" class="form-control" type="password" placeholder="Password" name="password">
+                                <input id="password_confirmation" class="form-control" type="password" placeholder="Repeat Password" name="password_confirmation">
+                                <input class="btn btn-default btn-register" type="submit" value="Create account" name="commit">
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="forgot login-footer">
+                            <span>Looking to 
+                                 <a href="javascript: showRegisterForm();">create an account</a>
+                            ?</span>
+                        </div>
+                        <div class="forgot register-footer" style="display:none">
+                             <span>Already have an account?</span>
+                             <a href="javascript: showLoginForm();">Login</a>
+                        </div>
+                    </div>        
+    		      </div>
+		      </div>
+		  </div>
+    </div>
