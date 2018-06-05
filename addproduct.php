@@ -6,9 +6,9 @@
 		header('Location: login.php');
 		die();
 	}
+  include('header.php');
 ?>
 
-<html>
 <head>
 	<title>Add Product</title>
 </head>
@@ -120,5 +120,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') { // Handle the form.
 	<input type="submit" value="Submit" />
 
 </form>
-</body>
-</html>
+<?php include('footer.php');?>

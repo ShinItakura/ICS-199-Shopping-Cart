@@ -2,13 +2,10 @@
 session_start(); //start session
 include("mysqli_connect.php");
 setlocale(LC_MONETARY,"en_US"); // US national format (see : http://php.net/money_format)
+include('header.php');
 ?>
-<!DOCTYPE HTML>
-<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Review Your Cart Before Buying</title>
-<link href="style/style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <h3 style="text-align:center">Review Your Cart Before Buying</h3>
@@ -81,6 +78,4 @@ if(isset($_SESSION["products"]) && count($_SESSION["products"])>0){
 	<form action="view_cart.php" method="POST">
 		<input type="submit" value="Check-out" />
 	</form>
-
-</body>
-</html>
+<?php include('footer.php');?>

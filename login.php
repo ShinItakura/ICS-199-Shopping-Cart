@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html>
-
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="login.css">
@@ -9,27 +6,28 @@
 <body>
 
     <h2>Login Form</h2>
+    <div class="content">
+      <form action="login.php" method="POST">
+          <div class="container">
+              <label for="uname">
+                  <b>Email</b>
+              </label>
+              <input type="text" placeholder="Enter Email" name="email" required>
 
-    <form action="login.php" method="POST">
-        <div class="container">
-            <label for="uname">
-                <b>Email</b>
-            </label>
-            <input type="text" placeholder="Enter Email" name="email" required>
+              <label for="psw">
+                  <b>Password</b>
+              </label>
+              <input type="password" placeholder="Enter Password" name="password" required>
 
-            <label for="psw">
-                <b>Password</b>
-            </label>
-            <input type="password" placeholder="Enter Password" name="password" required>
+              <button type="submit">Login</button>
+          </div>
 
-            <button type="submit">Login</button>
-        </div>
-
-        <div class="container" style="background-color:#f1f1f1">
-            <span class="register">Not registered yet? <a href="register.php">Sign Up</a>
-            </span>
-        </div>
-    </form>
+          <div class="container" style="background-color:#f1f1f1">
+              <span class="register">Not registered yet? <a href="register.php">Sign Up</a>
+              </span>
+          </div>
+      </form>
+    </div>
 </body>
 
 </html>
@@ -49,13 +47,13 @@
         $_SESSION['logged_in'] = true; 
         $_SESSION['role'] = $user->role;
         if ($user->role == 'customer') {
-          if (endsWith($_SERVER['HTTP_REFERER'], 'cart.php')) {
-            header('Location: cart.php');
+          if (endsWith($_SERVER['HTTP_REFERER'], 'view_cart.php')) {
+            header('Location: view_cart.php', true, 301);
           } else {
-            header('Location: index.php');
+            header('Location: index.php', true, 301);
           }
         } else if ($user->role == 'admin') {
-          header('Location: addproduct.php');
+          header('Location: addproduct.php', true, 301);
         }
         die(); 
       } else {
@@ -70,3 +68,4 @@
         (substr($str, -length) === $substr);
   }
 ?>
+<?php include('footer.php');?>

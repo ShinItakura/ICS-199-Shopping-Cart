@@ -1,6 +1,5 @@
-<html lang="en">
+<?php include('header.php');?>
   <head>
-    <meta charset="utf-8">
     <title>Register - Yo Yo Ma's</title>
   </head>
 
@@ -52,7 +51,5 @@
         mysqli_close($dbc);
       }
     ?>
-  </body>  
-</html>
-
+<?php include('footer.php');?>
 
