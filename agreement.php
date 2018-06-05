@@ -7,7 +7,7 @@ include('header.php');
     <title>Privacy Page</title>
 </head>
 <body>
-    <div><span>
+    <div class="agreement"><span>
     <h1>Privacy policy</h1>
     <h3>1.	Introduction</h3>
     <p class="d">1.1	We are committed to safeguarding the privacy of [our website visitors and service users].</p>
