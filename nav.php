@@ -4,14 +4,13 @@
 	<div class="w3-bar w3-light-grey" style="height: 70px;">
 	    <p></p>
 		<a href="#" class="w3-bar-item w3-button">Home</a>
-		<a href="#" class="w3-bar-item w3-button">Shop</a>
+		<a href="index.php" class="w3-bar-item w3-button">Shop</a>
 		<div class="w3-dropdown-hover">
-			<button class="w3-button">Sign in</button>
+			<button class="w3-button">Account</button>
 			<div class="w3-dropdown-content w3-card-4">
-
-                 <!--Modal-->
-				 <a href="#" class="w3-bar-item w3-button" data-toggle="modal" href="javascript:void(0)" onclick="openLoginModal();">Log in</a>
-				 <a href="#" class="w3-bar-item w3-button" data-toggle="modal" href="javascript:void(0)" onclick="openRegisterModal();">Register</a>
+				 <a href="login.php" class="w3-bar-item w3-button">Log in</a>
+				 <a href="register.php" class="w3-bar-item w3-button">Register</a>
+				 <a href="logout.php" class="w3-bar-item w3-button">Logout</a>
 				 
 			</div>
 		</div>
