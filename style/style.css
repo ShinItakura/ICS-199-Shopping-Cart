@@ -17,7 +17,9 @@ div.b {
          width: 340px;
 
 }
-
+div.agreement{
+    padding-left: 100px;
+}
 div.c {
     font-size: 150%;
 }
