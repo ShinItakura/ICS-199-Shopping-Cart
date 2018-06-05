@@ -12,10 +12,19 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<link rel="stylesheet" href="style/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="cart.css">-->
+
+<link href="bootstrap3/css/bootstrap.css" rel="stylesheet" />
+<link href="style/login-register.css" rel="stylesheet" />
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+<script src="jquery/jquery-1.10.2.js" type="text/javascript"></script>
+<script src="bootstrap3/js/bootstrap.js" type="text/javascript"></script>
+<script src="js/login-register.js" type="text/javascript"></script>
+<link rel="stylesheet" href="style/style.css">
+
 
 
 
@@ -24,18 +33,14 @@
 
 <body>
 
-
+ 
 
 	<!-- container -->
 	<div class="container">
 		<div class="row">
 
-		<div class="col-md-12">
-			<div class="page-header">
-				<h1><?php echo isset($page_title) ? $page_title : "Yo Yo Ma's House of Yo-Yo's"; ?></h1>
-			</div>
+		<img src="images/YoYo_LOGO_4.jpg">			
+</div>
 		</div>
 
-<?php
-include 'nav.php';
-?>
+<?php include('nav.php');?>

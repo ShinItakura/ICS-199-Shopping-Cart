@@ -10,7 +10,12 @@ div.a {
 }
 
 div.b {
-    font-size: large;
+        align: center;
+        background-color: #F9F9F9;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 8px;
+         width: 340px;
+
 }
 
 div.c {
@@ -38,6 +43,37 @@ p.c {
     width: 1000px;
 		font-size: 150%;
 }
+
+.btn {
+    background-color: Red; /* Blue background */
+    border: none; /* Remove borders */
+    color: white; /* White text */
+    padding: 12px 16px; /* Some padding */
+    font-size: 10px; /* Set a font size */
+    cursor: pointer; /* Mouse pointer on hover */
+    align: center;
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+    background-color: RoyalBlue;
+}
+
+.btn-checkout {
+    background-color: red; /* Blue background */
+    border: none; /* Remove borders */
+    color: white; /* White text */
+    padding: 12px 16px; /* Some padding */
+    font-size: 16px; /* Set a font size */
+    cursor: pointer; /* Mouse pointer on hover */
+    align: right;
+}
+
+/* Darker background on mouse-over */
+.btn-checkout:hover {
+    background-color: RoyalBlue;
+}
+
 
 ul.products-wrp {
 	list-style: none;
@@ -97,6 +133,7 @@ ul.products-wrp li .item-box button[disabled=disabled]{
 	margin-right: auto;
 	margin-left: auto;
 	font-weight: bold;
+float: right;
 }
 .cart-box:hover{
 	filter: alpha(opacity=50);
@@ -116,10 +153,13 @@ ul.products-wrp li .item-box button[disabled=disabled]{
 	font: small Verdana, Geneva, sans-serif;
 	margin-top: 10px;
 	display:none;
+
+
 }
 .shopping-cart-box a{
 	color: #e6e6e6;
 	text-decoration:none;
+
 }
 .shopping-cart-box:after {
 	content: '';
@@ -131,6 +171,7 @@ ul.products-wrp li .item-box button[disabled=disabled]{
 	border-bottom: 8px solid rgba(255, 0, 97, 1);
 	border-right: 8px solid transparent;
 	border-left: 8px solid transparent;
+
 }
 .shopping-cart-box ul.cart-products-loaded{
 	margin: 0;
@@ -138,12 +179,13 @@ ul.products-wrp li .item-box button[disabled=disabled]{
 	list-style: none;
 }
 .shopping-cart-box .close-shopping-cart-box{
-  float: right;
+  
 }
 #shopping-cart-results ul.cart-products-loaded li{
 	background: #000000;
 	margin-bottom: 1px;
 	padding: 6px 4px 6px 10px;
+
 }
 .shopping-cart-box .remove-item{
 	float:right;
