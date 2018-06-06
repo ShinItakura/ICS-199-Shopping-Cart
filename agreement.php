@@ -114,10 +114,12 @@ include('header.php');
     </ul>
     <p class="d">12.2	Blocking all cookies will have a negative impact upon the usability of many websites.</p>
     <p class="d">12.3	If you block cookies, you will not be able to use all the features on our website.</p>
-    </span></div>
-    <button type="submit" \>I agree to the terms and conditions</button>
-    <button type="submit" \>I do not agree
-    </button>
+    </span>
+    <form class="agreement">
+        <button type="submit" value="true">I agree to the terms and conditions</button>
+        <button type="submit" value="false">I do not agree</button>
+    </form>
+    </div>
 </body>
 <?php
 
