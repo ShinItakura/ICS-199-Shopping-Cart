@@ -28,7 +28,7 @@
     
     <?php
       include('mysqli_connect.php');
-      ini_set('display_errors',1);
+      //ini_set('display_errors',1);
       /*function recordExists($table, $where, $mysqli{
         $query = "SELECT * FROM `$table` WHERE $where;
         $result = $mysqli->query($query);
@@ -47,7 +47,18 @@
         $country = mysqli_real_escape_string($dbc, $_POST['country']);
         $postcode = str_replace(' ', '', mysqli_real_escape_string($dbc, $_POST['postcode']));
         $query = "INSERT INTO USER (fname, lname, password, email, address, country, postcode, role) VALUES ('$first', '$last', '$pw_hash', '$email', '$street', '$country', '$postcode', 'customer');";
-        mysqli_query($dbc, $query) or die(mysqli_error($dbc));
+        $result = mysqli_query($dbc, $query);
+        if ($result == true) {
+          print "<script type='text/javascript'>";
+          print "alert('Account Successfully Registered')";
+          print "</script>";
+        } else if (mysqli_errno($dbc) == 1062) {
+          print "<script type='text/javascript'>";
+          print "alert('Error: An account with that email address already exists')";
+          print "</script>";
+        } else {
+          print "Error #" . mysqli_errno($dbc) . " " . mysqli_error($dbc);
+        }
         mysqli_close($dbc);
       }
     ?>
