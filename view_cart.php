@@ -2,26 +2,26 @@
 session_start(); //start session
 include("mysqli_connect.php");
 setlocale(LC_MONETARY,"en_US"); // US national format (see : http://php.net/money_format)
-include('header.php');
+if ($_SERVER['REQUEST_METHOD'] == 'POST') { // Handle the form.
+  if ($_SESSION['logged_in']) {
+    if (count($_SESSION["products"])>0) {	
+      header('Location: checkout.php');
+    } else {	// Cart is empty
+        echo "<h3>Can't checkout, your cart is empty.</h3>";
+    }
+  } else {
+    header('Location: login.php');
+  }
+}
 ?>
+
+<?php include('header.php');?>
 <head>
 <title>Review Your Cart Before Buying</title>
 </head>
 <body>
 <h3 style="text-align:center">Review Your Cart Before Buying</h3>
 <?php
-if ($_SERVER['REQUEST_METHOD'] == 'POST') { // Handle the form.
-	if ($_SESSION['logged_in']) {
-		if (count($_SESSION["products"])>0) {	
-			header('Location: checkout.php');
-		} else {	// Cart is empty
-				echo "<h3>Can't checkout, your cart is empty.</h3>";
-		}
-	} else {
-		header('Location: login.php');
-	}
-}
-
 if(isset($_SESSION["products"]) && count($_SESSION["products"])>0){
 	$total 			= 0;
 	$list_tax 		= '';

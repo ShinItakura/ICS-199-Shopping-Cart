@@ -1,6 +1,44 @@
+<?php
+  function endsWith($str, $substr) {
+    $length = strlen($substr);
+    return $length === 0 ||
+        (substr($str, -length) === $substr);
+  }
+
+  if (isset($_POST['email'])) {
+    include('mysqli_connect.php');
+    $query = "SELECT * FROM USER WHERE email = '{$_POST['email']}';";
+    $result = $dbc->query($query);
+    if ($result == false) {
+      print "Invalid Login";
+    } else {
+      $user = $result->fetch_object();
+      if (password_verify($_POST['password'], $user->password)) {
+        print "Successful Login";
+        session_start();
+        $_SESSION['userid'] = $user->id; 
+        $_SESSION['logged_in'] = true; 
+        $_SESSION['role'] = $user->role;
+        if ($user->role == 'customer') {
+          if (endsWith($_SERVER['HTTP_REFERER'], 'view_cart.php')) {
+            header('Location: view_cart.php');
+          } else {
+            header('Location: index.php');
+          }
+        } else if ($user->role == 'admin') {
+          header('Location: addproduct.php');
+        }
+        die(); 
+      } else {
+        print "Invalid login";
+      }  
+    }
+  }
+?>
+<?php include('header.php');?>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="login.css">
+    <link rel="stylesheet" type="text/css" href="style/login.css">
 </head>
 
 <body>
@@ -31,41 +69,5 @@
 </body>
 
 </html>
-<?php
-  if (isset($_POST['email'])) {
-    include('mysqli_connect.php');
-    $query = "SELECT * FROM USER WHERE email = '{$_POST['email']}';";
-    $result = $dbc->query($query);
-    if ($result == false) {
-      print "Invalid Login";
-    } else {
-      $user = $result->fetch_object();
-      if (password_verify($_POST['password'], $user->password)) {
-        print "Successful Login";
-        session_start();
-        $_SESSION['userid'] = $user->id; 
-        $_SESSION['logged_in'] = true; 
-        $_SESSION['role'] = $user->role;
-        if ($user->role == 'customer') {
-          if (endsWith($_SERVER['HTTP_REFERER'], 'view_cart.php')) {
-            header('Location: view_cart.php', true, 301);
-          } else {
-            header('Location: index.php', true, 301);
-          }
-        } else if ($user->role == 'admin') {
-          header('Location: addproduct.php', true, 301);
-        }
-        die(); 
-      } else {
-        print "Invalid login";
-      }  
-    }
-  }
 
-  function endsWith($str, $substr) {
-    $length = strlen($substr);
-    return $length === 0 ||
-        (substr($str, -length) === $substr);
-  }
-?>
 <?php include('footer.php');?>
