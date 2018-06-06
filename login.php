@@ -20,8 +20,9 @@
         $_SESSION['logged_in'] = true; 
         $_SESSION['role'] = $user->role;
         if ($user->role == 'customer') {
-          if (endsWith($_SERVER['HTTP_REFERER'], 'view_cart.php')) {
+          if ($_SESSION["camefromcart"]) {
             header('Location: view_cart.php');
+            unset($_SESSION["camefromcart"]);
           } else {
             header('Location: index.php');
           }

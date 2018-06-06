@@ -10,6 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') { // Handle the form.
         echo "<h3>Can't checkout, your cart is empty.</h3>";
     }
   } else {
+    $_SESSION["camefromcart"] = true;
     header('Location: login.php');
   }
 }
