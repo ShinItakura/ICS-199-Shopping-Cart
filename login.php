@@ -11,6 +11,10 @@
     $result = $dbc->query($query);
     if ($result == false) {
       print "Invalid Login";
+    } elseif(!isset($_POST['privacypolicy'])) {
+        $_SESSION["camefromlogin"] = true;
+        header('location: agreement.php');
+        print "You must accept the terms of service";
     } else {
       $user = $result->fetch_object();
       if (password_verify($_POST['password'], $user->password)) {
@@ -57,7 +61,9 @@
                   <b>Password</b>
               </label>
               <input type="password" placeholder="Enter Password" name="password" required>
-
+              <br>
+              <input type="checkbox" name="privacypolicy"  required> I accept <a href="agreement.php">terms of service</a>.
+              <br>
               <button type="submit">Login</button>
           </div>
 
