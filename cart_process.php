@@ -30,6 +30,13 @@ if(isset($_POST["id"]))
 		$_SESSION["products"][$new_product['id']] = $new_product;	//update products with new item array
 	}
 
+  //Add item to cart table of database
+  $userid = $_SESSION["userid"];
+  $itemid = $new_product['id'];
+  $quantity = $_POST["quantity"];
+  $query = "INSERT INTO CART (ITEM_id, USER_id, quantity) VALUES ($itemid, $userid, $quantity);";
+  mysqli_query($dbc, $query);
+
  	$total_items = count($_SESSION["products"]); //count total items
 	die(json_encode(array('items'=>$total_items))); //output json
 
