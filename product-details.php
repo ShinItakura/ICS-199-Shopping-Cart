@@ -1,23 +1,25 @@
 
 	<?php
-		include("config.inc.php"); //include config file
+		include("mysqli_connect.php"); //include config file
 		
-		$prodID = $_GET['prodid'];
+		$prodID = $_GET['id'];
 
-		if(!empty($prodID)){
-			$sqlSelectSpecProd = mysql_query("select * from item where id = '$prodID'") or die(mysql_error());
-			$getProdInfo = mysql_fetch_array($sqlSelectSpecProd);
-			$prodname= $getProdInfo["name"];
-			$prodprice = $getProdInfo["price"];
-			$proddesc = $getProdInfo["information"];
-			$prodimage = $getProdInfo["image"];
-			}
+if (!empty($prodID)) {
+	$query = "select * from ITEM where id = '$prodID'";
+	$sqlSelectSpecProd = mysqli_query($dbc, $query);
+	$getProdInfo = mysqli_fetch_array($sqlSelectSpecProd);
+	$prodname = $getProdInfo["name"];
+	$prodprice = $getProdInfo["price"];
+	$proddesc = $getProdInfo["description"];
+	$prodimage = $getProdInfo["image"];
+}
+
 	?>
 
 
 
 	<?php include('header.php'); ?>
-		
+		<br>
 		<section>
 			<div class="container">
 				<div class="row">
@@ -30,7 +32,7 @@
 								<div class="view-product">
 	                            
 							
-								<img src="imgages/<?php echo $prodimage; ?>" />	
+								<img src="images/<?php echo $prodimage; ?>" />	
 	                                
 								</div>
 							</div>
@@ -44,10 +46,10 @@
 	                                <br>
 	                                
 	                                <a class="btn btn-default add-to-cart" id="add-to-cart"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
-	                                <p class="info hidethis" style="color:red;"><strong>Product Added to Cart!</strong></p>
+	                                <p class="info hidethis" style="color:red;"></p>
 									<p><b>Description: </b><?php echo $proddesc; ?></p>
-									<p><b>Contact Info:</b> 1234567</p>
-									<p><b>Email:</b> email@domain.com</p>
+									<p><b>Contact Info:</b> 123-456-7891</p>
+									<p><b>Email:</b> bob@bob.com</p>
 									
 								</div><!--/product-information-->
 							</div>

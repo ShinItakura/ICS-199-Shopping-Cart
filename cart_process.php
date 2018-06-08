@@ -27,6 +27,11 @@ if(isset($_POST["id"]))
 			}
 		}
 
+		//  foreach($_SESSION['products'] AS $id => $quantity) {
+		//  $totalquantity = $totalquantity + $quantity;
+	    // }
+		
+
 		$_SESSION["products"][$new_product['id']] = $new_product;	//update products with new item array
 	}
 

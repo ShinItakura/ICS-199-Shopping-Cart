@@ -40,7 +40,7 @@ p.b {
 
 p.a {
 
-    word-break: break-all;
+    word-break: normal;
 }
 
 p.c {
@@ -75,7 +75,7 @@ p.d {
     padding: 12px 16px; /* Some padding */
     font-size: 16px; /* Set a font size */
     cursor: pointer; /* Mouse pointer on hover */
-    align: right;
+    align: center;
 }
 
 /* Darker background on mouse-over */
@@ -142,7 +142,7 @@ ul.products-wrp li .item-box button[disabled=disabled]{
 	margin-right: auto;
 	margin-left: auto;
 	font-weight: bold;
-float: right;
+
 }
 .cart-box:hover{
 	filter: alpha(opacity=50);
@@ -188,7 +188,7 @@ float: right;
 	list-style: none;
 }
 .shopping-cart-box .close-shopping-cart-box{
-  
+  float: right;
 }
 #shopping-cart-results ul.cart-products-loaded li{
 	background: #000000;

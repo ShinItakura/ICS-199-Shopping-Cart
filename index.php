@@ -73,7 +73,7 @@ $item .= <<<EOT
 
    <form class="form-item">
     <p class="a">{$row["name"]}</p>
-     <div><img src="images/{$row["image"]}"></div>
+     <div><a href="product-details.php?id={$row["id"]}"><img src="images/{$row["image"]}"></div></a>
      <div>Price : {$currency} {$row["price"]}<div>
 <div class="item-box">
 	<div> Qty :
