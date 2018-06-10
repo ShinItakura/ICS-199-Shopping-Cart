@@ -2,33 +2,71 @@
   <head>
     <title>Register - Yo Yo Ma's</title>
   </head>
+<style>
+    table#regtable{
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    } 
+</style>
 
   <body>
-    <form action="register.php" method="post">
-      First Name: <input type="text" name="first" required maxlength=45>
-      <br/>
-      Last Name: <input type="text" name="last" required maxlength=45> 
-      <br/>
-      Email Address: <input type="email" name="email" required maxlength=255>
-      <br/>
-      Password: <input type="password" name="password" required minlength=8>
-      <br/>
-      Address: <input type="text" name="street" required maxlength=45>
-      <br/>
-      Country: <select name="country">
-        <option value="Canada">Canada</option>
-        <option value="USA">USA</option>
-      </select>
-      <br/>
-      Postal Code: <input type="text" name="postcode" required minlength=5 maxlength=7 
-       pattern="[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ] ?[0-9][ABCEGHJKLMNPRSTVWXYZ][0-9]|[0-9]{5}">
-      <br/>
-      I agree to the <a href="agreement.php">Privacy Policy</a> 
-      <input type="checkbox" name="pp_accepted" required>
-      <br/>
-      
-    <input type="submit" value="Sign Up">
-    
+      <h2>Registration Form</h2>
+      <div class="content">
+            <form action="register.php" method="post">
+                <div class="container">
+                    <table id="regtable">
+                        <tr>
+                            <td>First Name: </td>
+                            <td><input type="text" name="first" required maxlength=45></td>
+                        </tr>
+                        <tr>
+                            <td>Last Name: </td>
+                            <td><input type="text" name="last" required maxlength=45> </td>
+                        </tr>
+                        <tr>
+                            <td>Email Address: </td>
+                            <td><input type="email" name="email" required maxlength=255></td>
+                        </tr>
+                        <tr>
+                            <td>Password: </td>
+                            <td><input type="password" name="password" required minlength=8></td>
+                        </tr>
+                        <tr>
+                            <td>Address: </td>
+                            <td><input type="text" name="street" required maxlength=45></td>
+                        </tr>
+                        <tr>
+                            <td>Country: </td>
+                            <td><select name="country">
+                                <option value="Canada">Canada</option>
+                                <option value="USA">USA</option>
+                                </select></td>
+                        </tr>
+                        <tr>
+                            <td>Postal Code: </td>
+                            <td><input type="text" name="postcode" required minlength=5 maxlength=7 pattern="[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ] ?[0-9][ABCEGHJKLMNPRSTVWXYZ][0-9]|[0-9]{5}"></td>
+                        </tr>
+                        <tr>
+                            <td> I agree to the <a href="agreement.php">Privacy Policy </a></td>
+                            <td><input type="checkbox" name="pp_accepted" required></td>
+                        </tr>
+                        <tr>
+                            <td><input type="submit" value="Sign Up"></td>
+                            <td><button type="reset" value="Reset">Reset</button></td>
+                        </tr>
+                    </table>
+                </div>
+          </form>
+        </div>
     <?php
       include('mysqli_connect.php');
       //ini_set('display_errors',1);
