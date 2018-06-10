@@ -11,19 +11,20 @@
     $result = $dbc->query($query);
     
     //new privacy policy query to check database if user has accepted privacy policy
-    $resultQuery = "SELECT pp_accepted FROM USER WHERE email like '{$_POST['email']}';"; //queries user data privacy policy column
-    $resultpp = mysqli_fetch_array($resultQuery); // changes the result to a number
-    $ppaccepted = $resultpp['pp_accepted'];
+    //queries user data privacy policy column
+    $resultQuery = "SELECT pp_accepted FROM USER WHERE email='{$_POST['email']}';"; 
+    // changes the result to a number
+    $resultppq = mysqli_fetch_array($resultQuery); 
+    $ppaccepted = $resultppq['pp_accepted'];
+    // verify the user's data privacy policy column
+    if ($ppaccepted == 0) {
+        // updates the user in database to reflect that privacy policy has been accepted by the user
+        $update = "UPDATE USER SET pp_accepted=1 WHERE email='{$_POST['email']}';";
+        mysqli_query($dbc,$update);
+    }
     
     if ($result == false) {
       print "Invalid Login";
-    } elseif(!isset($_POST['privacypolicy'])) { // checks to see if privacy policy check box has been clicked
-        /*
-        session_start();
-        $_SESSION["camefromlogin"] = true;
-        header('location: agreement.php');
-        */
-        print "You must accept the terms of service";
         
     } else {
       $user = $result->fetch_object();
@@ -33,12 +34,6 @@
         $_SESSION['userid'] = $user->id; 
         $_SESSION['logged_in'] = true; 
         $_SESSION['role'] = $user->role;
-        
-        // verify the user's data privacy policy column
-        if($ppaccepted == 0) {
-           mysqli_query("UPDATE USER SET pp_accepted = 1 WHERE email like '{$_POST['email']}';"); // updates the user in user table to reflect that privacy policy has been accepted by the user
-        }
-          
         if ($user->role == 'customer') {
           if ($_SESSION["camefromcart"]) {
             header('Location: view_cart.php');
@@ -48,8 +43,7 @@
           }
         } else if ($user->role == 'admin') {
           header('Location: addproduct.php');
-        }
-          
+        } 
         die(); 
       } else {
         print "Invalid login";
