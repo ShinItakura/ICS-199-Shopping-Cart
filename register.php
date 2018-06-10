@@ -23,7 +23,7 @@
       Postal Code: <input type="text" name="postcode" required minlength=5 maxlength=7 
        pattern="[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ] ?[0-9][ABCEGHJKLMNPRSTVWXYZ][0-9]|[0-9]{5}">
       <br/>
-      I agree to the <a href="">Privacy Policy</a> 
+      I agree to the <a href="agreement.php">Privacy Policy</a> 
       <input type="checkbox" name="pp_accepted" required>
       <br/>
       
