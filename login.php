@@ -12,8 +12,11 @@
     if ($result == false) {
       print "Invalid Login";
     } elseif(!isset($_POST['privacypolicy'])) {
+        /*
+        session_start();
         $_SESSION["camefromlogin"] = true;
         header('location: agreement.php');
+        */
         print "You must accept the terms of service";
     } else {
       $user = $result->fetch_object();
