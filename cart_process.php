@@ -13,7 +13,9 @@ if(isset($_POST["id"]))
   $userid = $_SESSION["userid"];
   $itemid = $new_product['id'];
   $quantity = $_POST["quantity"];
-  $query = "INSERT INTO CART (ITEM_id, USER_id, quantity) VALUES ($itemid, $userid, $quantity);";
+  $query = "INSERT INTO CART (ITEM_id, USER_id, quantity) 
+    VALUES ($itemid, $userid, $quantity)
+    ON DUPLICATE KEY UPDATE quantity = $quantity;";
   mysqli_query($dbc, $query);
 
   $query = "SELECT * FROM CART WHERE USER_id = $userid;";
