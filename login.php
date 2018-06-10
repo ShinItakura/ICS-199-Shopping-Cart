@@ -34,6 +34,21 @@
         $_SESSION['userid'] = $user->id; 
         $_SESSION['logged_in'] = true; 
         $_SESSION['role'] = $user->role;
+
+        // transfer items from session storage cart to db cart
+        if(isset($_SESSION["products"]) && count($_SESSION["products"])>0) { 
+          $userid = $_SESSION["userid"];
+          foreach($_SESSION["products"] as $product) {
+            $itemid = $product["id"];
+            $quantity = $product["quantity"]; 
+
+            $query = "INSERT INTO CART (ITEM_id, USER_id, quantity) 
+              VALUES ($itemid, $userid, $quantity)
+              ON DUPLICATE KEY UPDATE quantity = $quantity;";
+            mysqli_query($dbc, $query);
+          }
+        }
+
         if ($user->role == 'customer') {
           if ($_SESSION["camefromcart"]) {
             header('Location: view_cart.php');

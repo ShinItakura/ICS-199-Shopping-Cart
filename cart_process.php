@@ -14,6 +14,7 @@ if(isset($_POST["id"]))
     $userid = $_SESSION["userid"];
     $itemid = $new_product['id'];
     $quantity = $_POST["quantity"];
+
     $query = "INSERT INTO CART (ITEM_id, USER_id, quantity) 
       VALUES ($itemid, $userid, $quantity)
       ON DUPLICATE KEY UPDATE quantity = $quantity;";
@@ -22,12 +23,10 @@ if(isset($_POST["id"]))
     $query = "SELECT * FROM CART WHERE USER_id = $userid;";
     $result = mysqli_query($dbc, $query);
     $total_items = mysqli_num_rows($result);
-
-    die(json_encode(array('items'=>$total_items))); //output json
+    die(json_encode(array('items'=>$total_items)));
 
   } else {
     //Add item to session storage
-    
     $statement = $dbc->prepare("SELECT name, price FROM ITEM WHERE id=? LIMIT 1");
     $statement->bind_param('s', $new_product['id']);
     $statement->execute();
@@ -47,8 +46,6 @@ if(isset($_POST["id"]))
 
       $_SESSION["products"][$new_product['id']] = $new_product;	//update products with new item array
     }
-
-
     $total_items = count($_SESSION["products"]); //count total items
     die(json_encode(array('items'=>$total_items))); //output json
   }
@@ -114,16 +111,15 @@ if(isset($_POST["load_cart"]) && $_POST["load_cart"]==1)
 if (isset($_GET["remove_code"]))
 {
   if (isset($_SESSION["logged_in"])) {
-    $id = filter_var($_GET["remove_code"], FILTER_SANITIZE_STRING); //get the product code to remove
+    $itemid = filter_var($_GET["remove_code"], FILTER_SANITIZE_STRING); //get the product code to remove
 
     $userid = $_SESSION["userid"];
-    $query = "DELETE FROM CART WHERE USER_id = $userid AND ITEM_id = $id;";
+    $query = "DELETE FROM CART WHERE USER_id = $userid AND ITEM_id = $itemid;";
     mysqli_query($dbc, $query);
-    
+      
     $query = "SELECT * FROM CART WHERE USER_id = $userid;";
     $result = mysqli_query($dbc, $query);
     $total_items = mysqli_num_rows($result);
-
     die(json_encode(array('items'=>$total_items)));
   } else {
     //Use session storage

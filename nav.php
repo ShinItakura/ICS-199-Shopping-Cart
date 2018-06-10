@@ -85,7 +85,7 @@ $(document).ready(function(){
 <!--mini shopping cart in nav bar-->
 <a href="#"  class="cart-box" id="cart-info" title="View Cart">
 <?php
-  if (isset(SESSION["logged_in"])) {
+  if (isset($_SESSION["logged_in"])) {
     $userid = $_SESSION['userid'];
     $query = "SELECT * FROM CART WHERE USER_id = $userid;";
     $result = mysqli_query($dbc, $query);
