@@ -85,11 +85,16 @@ $(document).ready(function(){
 <!--mini shopping cart in nav bar-->
 <a href="#"  class="cart-box" id="cart-info" title="View Cart">
 <?php
-  $userid = $_SESSION['userid'];
-  $query = "SELECT * FROM CART WHERE USER_id = $userid;";
-  $result = mysqli_query($dbc, $query);
-  if ($result) {
-    echo mysqli_num_rows($result);
+  if (isset(SESSION["logged_in"])) {
+    $userid = $_SESSION['userid'];
+    $query = "SELECT * FROM CART WHERE USER_id = $userid;";
+    $result = mysqli_query($dbc, $query);
+    if ($result) {
+      echo mysqli_num_rows($result);
+    }
+  }
+  elseif(isset($_SESSION["products"])) {
+    echo count($_SESSION["products"]);
   } else {
     echo 0;
   }
