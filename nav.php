@@ -88,7 +88,11 @@ $(document).ready(function(){
   $userid = $_SESSION['userid'];
   $query = "SELECT * FROM CART WHERE USER_id = $userid;";
   $result = mysqli_query($dbc, $query);
-  echo mysqli_num_rows($result);
+  if ($result) {
+    echo mysqli_num_rows($result);
+  } else {
+    echo 0;
+  }
 ?>
 </a>
 
