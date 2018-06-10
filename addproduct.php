@@ -6,9 +6,9 @@
 		header('Location: login.php');
 		die();
 	}
+  include('header.php');
 ?>
 
-<html>
 <head>
 	<title>Add Product</title>
 </head>
@@ -23,7 +23,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') { // Handle the form.
 	} else {	// It is an image
 		// Try to move the uploaded file:	
 		//if (move_uploaded_file ($_FILES['the_file']['tmp_name'], "/home/student/cst107/myfiles/{$_FILES['the_file']['name']}")) {	
-		if (move_uploaded_file ($_FILES['picture']['tmp_name'], "/home/student/cst107/public_html/ICS199/project/images/{$_FILES['picture']['name']}")) {
+		//if (move_uploaded_file ($_FILES['picture']['tmp_name'], "/home/student/cst107/public_html/ICS199/project/images/{$_FILES['picture']['name']}")) {
+		if (move_uploaded_file ($_FILES['picture']['tmp_name'], "images/{$_FILES['picture']['name']}")) {	
 	
 			print '<p>Your picture has been uploaded.</p>';
 	
@@ -74,7 +75,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') { // Handle the form.
 		//NOW()
 		// Run insert query
 		if (@mysqli_query($db, $query)) {
-			print '<p><h3>The product "$name" has been successfully added.</h3></p>';
+			?>
+			<p><h3>The product "<?php echo "$name" ?>" has been successfully added.</h3></p>';
+			<?php
 		} else {
 			print '<p>The product could not be added because:<br>' . mysqli_error($db) . '.</p>';
 			print '<p>The query being run was: ' . $query . '</p>'; 
@@ -120,5 +123,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') { // Handle the form.
 	<input type="submit" value="Submit" />
 
 </form>
-</body>
-</html>
+<?php include('footer.php');?>
