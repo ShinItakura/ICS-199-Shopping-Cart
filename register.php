@@ -23,6 +23,9 @@
       Postal Code: <input type="text" name="postcode" required minlength=5 maxlength=7 
        pattern="[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ] ?[0-9][ABCEGHJKLMNPRSTVWXYZ][0-9]|[0-9]{5}">
       <br/>
+      I agree to the <a href="agreement.php">Privacy Policy</a> 
+      <input type="checkbox" name="pp_accepted" required>
+      <br/>
       
     <input type="submit" value="Sign Up">
     
@@ -46,7 +49,8 @@
         $street = mysqli_real_escape_string($dbc, $_POST['street']);
         $country = mysqli_real_escape_string($dbc, $_POST['country']);
         $postcode = str_replace(' ', '', mysqli_real_escape_string($dbc, $_POST['postcode']));
-        $query = "INSERT INTO USER (fname, lname, password, email, address, country, postcode, role) VALUES ('$first', '$last', '$pw_hash', '$email', '$street', '$country', '$postcode', 'customer');";
+        $pp_accepted = $_POST['pp_accepted'] == "on";
+        $query = "INSERT INTO USER (fname, lname, password, email, address, country, postcode, role, pp_accepted) VALUES ('$first', '$last', '$pw_hash', '$email', '$street', '$country', '$postcode', 'customer', $pp_accepted);";
         $result = mysqli_query($dbc, $query);
         if ($result == true) {
           print "<script type='text/javascript'>";
