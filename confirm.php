@@ -1,50 +1,26 @@
-<form action="confirm.php" method="post">
-<label>Subject of email:</label><br>
-<input type="text" name="subject" id="subject"/><br>
-<label>Body of email:</label><br>
-<textarea name="body" id="body" rows="10" cols="35"></textarea><br>
-<input type="submit" name=submit value="Submit"/>
-</form>
 <?php
-// testing git update with this text
-//setup some variables
-// enter username password hostname database name table name to connect to mySQL server table
-$user = "cst136"; 
-$password = "451722"; 
-$host = "localhost"; 
-$dbase = "ICS199Group13_dev"; 
-$table = "USER"; 
+ini_set('display_errors',1);
 
-//email address from where you want to send order confirmation from
-$from= 'shintaro.itakura28@camosun.bc.ca';
+include ('mysqli_connect.php');
+// on checkout click send order data to a text file
 
-//retrieves subject title and body 
-$subject= $_POST['subject'];
-//$subject = "Your order has been processed";
-$body= $_POST['body'];
-//$body = 
+// database query for order goes here
+$q = "SELECT u.id,fname,lname,email,i.name,o.orderDate FROM USER u, ORDER o, ITEM i;";
 
-// connect to mySQL server
-$db= mysqli_connect($host,$user,$password, $dbase) 
-or die("Unable to select database");
-
-//mySQL query to retrieve order data
-$query= "SELECT * FROM $ORDER";
-$result= mysqli_query ($db, $query) 
-or die ('Error querying database.');
-
-//fetches email list from database
-while ($row = mysqli_fetch_array($result)) {
-$firstname= $row['fname'];
-$lastname= $row['lname'];
-$email= $row['email'];
-
-//write email
-$msg= "Dear $first_name $last_name,\n$body";
-mail($email, $subject, $msg, 'From:' . $from);
-echo 'Email sent to: ' . $email. '<br>';
+// Get info from data base while loop
+$r = mysqli_query ($dbc, $q);
+while($row = mysqli_fetch_array ($r, MYSQLI_ASSOC)){
+    //open file and write
+    $myfile = fopen("{$row['id,fname, lname, orderDate']}.txt", "w") or die("Unable to open file!");
+    // user email
+    $email = {$row['email']};
+    fwrite($myfile, $email);
+    $orderUser = $q;
+    fwrite($myfile, $orderUser);
+    $txt = "Thank you for your purchase we are processing your order, and we will ship your order in the next few days. Due to excess orders during this time please be patient about with status of your order. We will send you a tracking number as soon as shipping commences.";
+    fwrite($myfile, $txt);
+    fclose($myfile);
+    // recommended by Jon 
 }
 
-//close database
-mysqli_close($db);
 ?>
