@@ -85,10 +85,17 @@ $(document).ready(function(){
 <a href="#"  class="cart-box" id="cart-info" title="View Cart">
 
 <?php
-
  //ini_set('display_errors',1);
  include_once('mysqli_connect.php');
  
+    if (isset($_POST['empty_cart'])) {
+            // session_desrtoy();
+            unset($_SESSION['products']);
+            $userid = $_SESSION['userid'];
+            $query = "delete from CART WHERE USER_id = $userid;";
+            $result = mysqli_query($dbc, $query);
+    }
+
   if (isset($_SESSION["logged_in"])) {
     $userid = $_SESSION['userid'];
     $query = "SELECT * FROM CART WHERE USER_id = $userid;";
@@ -102,16 +109,7 @@ $(document).ready(function(){
   } else {
     echo 0;
   }
-
-if (isset($_POST['empty_cart'])) {
-	    // session_desrtoy();
-		unset($_SESSION['products']);
-		$userid = $_SESSION['userid'];
-		$query = "delete from CART WHERE USER_id = $userid;";
-		$result = mysqli_query($dbc, $query);
-}
 ?>
-
 </a>
 
 <div class="shopping-cart-box" >
