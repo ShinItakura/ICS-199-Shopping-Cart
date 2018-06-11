@@ -42,7 +42,7 @@ $(document).ready(function(){
 			}).done(function(data){ //on Ajax success
 				$("#cart-info").html(data.items); //total items in cart-info element
 				button_content.html('Add to Cart'); //reset button text to original text
-				alert("Item added to Cart!"); //alert user
+				// alert("Item added to Cart!"); //alert user
 				if($(".shopping-cart-box").css("display") == "block"){ //if cart box is still visible
 					$(".cart-box").trigger( "click" ); //trigger click to update the cart box.
 				}
@@ -84,7 +84,13 @@ $(document).ready(function(){
 
 <!--mini shopping cart in nav bar-->
 <a href="#"  class="cart-box" id="cart-info" title="View Cart">
+
+
+
 <?php
+
+ //ini_set('display_errors',1);
+ 
   if (isset($_SESSION["logged_in"])) {
     $userid = $_SESSION['userid'];
     $query = "SELECT * FROM CART WHERE USER_id = $userid;";
@@ -98,68 +104,34 @@ $(document).ready(function(){
   } else {
     echo 0;
   }
+
+
+
+if (isset($_POST['empty_cart'])) {
+	   
+		$db = mysqli_connect('localhost', 'cst107','446287', 'ICS199Group13_dev');
+	    // session_desrtoy();
+		unset($_SESSION['products']);
+		$userid = $_SESSION['userid'];
+		$query = "delete from CART WHERE USER_id = $userid;";
+		$result = mysqli_query($db, $query);
+}
+
+
+
+
+
 ?>
 </a>
 
 <div class="shopping-cart-box" >
 <a href="#" class="close-shopping-cart-box" >Close</a>
 <h3>Your Shopping Cart</h3>
+<form action="" method="post">
+<p><input type="image" src="images/x_2.png" alt="submit" name="empty_cart" value="empty_cart">&nbsp;empty cart</p>
+</form>
     <div id="shopping-cart-results" >
     </div>
 </div>
 </div>
 
-
-
-<!--modal login sign up -->
-       
-         
-		 <div class="modal fade login" id="loginModal">
-		      <div class="modal-dialog login animated">
-    		      <div class="modal-content">
-    		         <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">Login with</h4>
-                    </div>
-                    <div class="modal-body">  
-                        <div class="box">
-                             <div class="content">
-                                
-                                <div class="error"></div>
-                                <div class="form loginBox">
-                                    <form method="post" action="/login" accept-charset="UTF-8">
-                                    <input id="email" class="form-control" type="text" placeholder="Email" name="email">
-                                    <input id="password" class="form-control" type="password" placeholder="Password" name="password">
-                                    <input class="btn btn-default btn-login" type="button" value="Login" onclick="loginAjax()">
-                                    </form>
-                                </div>
-                             </div>
-                        </div>
-                        <div class="box">
-                            <div class="content registerBox" style="display:none;">
-                             <div class="form">
-                                <form method="post" html="{:multipart=>true}" data-remote="true" action="/register" accept-charset="UTF-8">
-                                <input id="email" class="form-control" type="text" placeholder="Email" name="email">
-                                <input id="password" class="form-control" type="password" placeholder="Password" name="password">
-                                <input id="password_confirmation" class="form-control" type="password" placeholder="Repeat Password" name="password_confirmation">
-                                <input class="btn btn-default btn-register" type="submit" value="Create account" name="commit">
-                                </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <div class="forgot login-footer">
-                            <span>Looking to 
-                                 <a href="javascript: showRegisterForm();">create an account</a>
-                            ?</span>
-                        </div>
-                        <div class="forgot register-footer" style="display:none">
-                             <span>Already have an account?</span>
-                             <a href="javascript: showLoginForm();">Login</a>
-                        </div>
-                    </div>        
-    		      </div>
-		      </div>
-		  </div>
-    </div>

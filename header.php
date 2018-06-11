@@ -38,9 +38,23 @@
 	<!-- container -->
 	<div class="container">
 		<div class="row">
-
 		<img src="images/YoYo_LOGO_4.jpg">			
-</div>
-		</div>
+       </div>
+	   <div class="d">
+	   <?php
+	   //ini_set('display_errors',1);
+	   $db = mysqli_connect('localhost', 'cst107','446287', 'ICS199Group13_dev');
+       $query3 = "SELECT fname,lname,role FROM USER WHERE id = {$_SESSION['userid']}";
+	   $result2=mysqli_query($db, $query3);
+
+		$test = mysqli_fetch_array($result2);
+		$username = $test['fname'];
+		$username2 = $test['lname'];
+		$userrole = $test['role'];
+		echo "<p> Welcome $userrole $username $username2</p>";	
+        ?>
+	   </div>
+	   
+	</div>
 
 <?php include('nav.php');?>
