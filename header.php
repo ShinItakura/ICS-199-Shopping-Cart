@@ -42,10 +42,10 @@
        </div>
 	   <div class="d">
 	   <?php
+	   include_once(mysqli_connect.php);
 	   //ini_set('display_errors',1);
-	   $db = mysqli_connect('localhost', 'cst107','446287', 'ICS199Group13_dev');
        $query3 = "SELECT fname,lname,role FROM USER WHERE id = {$_SESSION['userid']}";
-	   $result2=mysqli_query($db, $query3);
+	   $result2=mysqli_query($dbc, $query3);
 
 		$test = mysqli_fetch_array($result2);
 		$username = $test['fname'];

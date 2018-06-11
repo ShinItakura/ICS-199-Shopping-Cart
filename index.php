@@ -1,6 +1,6 @@
 <?php
 session_start(); //start session
-include('mysqli_connect.php');
+include_once('mysqli_connect.php');
 include 'header.php';
 
 ?>
