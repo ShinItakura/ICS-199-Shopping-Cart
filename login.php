@@ -17,12 +17,13 @@
     $resultppq = mysqli_fetch_array($resultQuery); 
     $ppaccepted = $resultppq['pp_accepted'];
     $answer = $_POST['privacypolicy'];  
-    if ($answer == "accept") {          
-        echo 'Correct';
+    // checks if the privacy policy have been accepted updates database pp_accepted column and sets it to one
+    if ($answer == "accept") {
         $update = "UPDATE USER SET pp_accepted=1 WHERE email='{$_POST['email']}';";
         mysqli_query($dbc,$update);
     }
     else {
+        // if privacy policy has been set to not accept. On submit click updates the database pp_accepted column to zero for user and redirects back to fresh login page 
         $update = "UPDATE USER SET pp_accepted=0 WHERE email='{$_POST['email']}';";
         mysqli_query($dbc,$update);
         session_start();
@@ -30,14 +31,7 @@
         header ('Location: login.php');
         die();
     }
-    // verify the user's data privacy policy column
-    /*
-    if ($ppaccepted == 0) {
-        // updates the user in database to reflect that privacy policy has been accepted by the user
-        $update = "UPDATE USER SET pp_accepted=1 WHERE email='{$_POST['email']}';";
-        mysqli_query($dbc,$update);
-    }
-    */
+
     if ($result == false) {
       print "Invalid Login";
         
@@ -103,8 +97,11 @@
               </label>
               <input type="password" placeholder="Enter Password" name="password" required>
               <br>
+              <!--CR02 update to include a privacy policy acceptance and link to a new privacy policy page-->
+              <!--accept the privacy policy with auto accept set for radio button-->
               <input type="radio" name="privacypolicy" value="accept" checked> I accept <a href="agreement.php">terms of service</a>.
               <br>
+              <!--declines the privacy policy user must make the choice to unaccept it-->
               <input type="radio" name="privacypolicy" value="donotaccept"> I do not accept <a href="agreement.php">terms of service</a>.
               <br>
               <button type="submit">Login</button>
