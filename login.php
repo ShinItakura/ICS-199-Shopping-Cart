@@ -16,13 +16,28 @@
     // changes the result to a number
     $resultppq = mysqli_fetch_array($resultQuery); 
     $ppaccepted = $resultppq['pp_accepted'];
+    $answer = $_POST['privacypolicy'];  
+    if ($answer == "accept") {          
+        echo 'Correct';
+        $update = "UPDATE USER SET pp_accepted=1 WHERE email='{$_POST['email']}';";
+        mysqli_query($dbc,$update);
+    }
+    else {
+        $update = "UPDATE USER SET pp_accepted=0 WHERE email='{$_POST['email']}';";
+        mysqli_query($dbc,$update);
+        session_start();
+        session_destroy();
+        header ('Location: login.php');
+        die();
+    }
     // verify the user's data privacy policy column
+    /*
     if ($ppaccepted == 0) {
         // updates the user in database to reflect that privacy policy has been accepted by the user
         $update = "UPDATE USER SET pp_accepted=1 WHERE email='{$_POST['email']}';";
         mysqli_query($dbc,$update);
     }
-    
+    */
     if ($result == false) {
       print "Invalid Login";
         
@@ -88,7 +103,9 @@
               </label>
               <input type="password" placeholder="Enter Password" name="password" required>
               <br>
-              <input type="checkbox" name="privacypolicy"  required> I accept <a href="agreement.php">terms of service</a>.
+              <input type="radio" name="privacypolicy" value="accept" checked> I accept <a href="agreement.php">terms of service</a>.
+              <br>
+              <input type="radio" name="privacypolicy" value="donotaccept"> I do not accept <a href="agreement.php">terms of service</a>.
               <br>
               <button type="submit">Login</button>
           </div>
