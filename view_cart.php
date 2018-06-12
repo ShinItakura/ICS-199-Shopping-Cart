@@ -187,9 +187,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 	<?php //echo round($subtotal*1.05,2); ?>
 	</form>
 	<br>
-	<form action="checkout.php" method="POST">
-		<input type="submit" name ="checkout" value="Check-out" />
+	<!--<form action="checkout.php" method="POST">
+		<input type="submit" name="checkout" value="Check-out" />
 	</form>	
+  -->
 	<p><a href="view_cart.php?case=emp" class="btn btn-default">Empty Cart</a></p> 
 	
 	<?php
@@ -201,15 +202,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 <?php require_once('./config.php'); ?>
 
-<!--<form action="charge.php" method="post">
+<form action="checkout.php" method="post">
   <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-          data-key="<?php //echo $stripe['publishable_key']; ?>"
+          data-key="<?php echo $stripe['publishable_key']; ?>"
           data-description="Pay using Stripe"
-          data-amount="5000"
-          data-locale="auto"></script>
-	  <input type="hidden" name="totalamt" value="<?php //echo $total*100; ?>" />
+          data-amount="$total * 100"
+          data-locale="auto"
+          data-currency="cad">
+  </script>
 </form>
--->
 
 <?php
 include 'footer.php';
