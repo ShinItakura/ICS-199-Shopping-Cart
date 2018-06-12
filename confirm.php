@@ -5,7 +5,7 @@ include ('mysqli_connect.php');
 // on checkout click send order data to a text file
 
 // database query for order goes here
-$q = "SELECT u.id,fname,lname,email,i.name,o.orderDate FROM USER u, ORDER o, ITEM i;";
+$q = "SELECT fname,lname, email, u.id, i.name from ICS199Group13_dev.USER u, ICS199Group13_dev.PURCHASE p, ICS199Group13_dev.ITEM i WHERE u.id = p.USER_id and email = '{$_POST['email']}}';";
 
 // Get info from data base while loop
 $r = mysqli_query ($dbc, $q);
