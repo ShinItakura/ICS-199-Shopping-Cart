@@ -7,6 +7,7 @@ include('header.php');
     <title>Privacy Page</title>
 </head>
 <body>
+    <!--new privacy policy agreement page user readable agreement below-->
     <div class="agreement"><span>
     <h1>Privacy policy</h1>
     <h3>1.	Introduction</h3>
@@ -113,25 +114,14 @@ include('header.php');
     </ol>
     <p class="d">11.2	Blocking all cookies will have a negative impact upon the usability of many websites.</p>
     <p class="d">11.3	If you block cookies, you will not be able to use all the features on our website.</p>
+    <!--returns to previous page button wether its from the login.php or register.php-->    
     <button onclick="goBack()">Return to previous page</button>
+    <!--this script sets the redirect location for the return to previous page button-->
     <script>
     function goBack() {
         window.history.back();
     }
     </script>
-    <?php
-        /*
-        $_GET['privacypolicy'];
-        if ($_SESSION["camefromlogin"]){
-            header('javascript://history.go(-1)');
-        } else {
-            header('javascript://history.go(-1)');
-        }
-        $previous = "javascript://history.go(-1)";
-        print '<button type="submit" action="$previous">Return to previous page</button>';
-        print '<form class="agreement" action="agreement.php" method="POST"><button type="submit" action="$previous">Return to previous page</button></form>';
-        */
-        ?>
     </span>
     </div>
 </body>

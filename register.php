@@ -56,6 +56,7 @@
                             <td><input type="text" name="postcode" required minlength=5 maxlength=7 pattern="[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ] ?[0-9][ABCEGHJKLMNPRSTVWXYZ][0-9]|[0-9]{5}"></td>
                         </tr>
                         <tr>
+                            <!--CR02 privacy policy agreement checkbox and link to agreement.php-->
                             <td> I agree to the <a href="agreement.php">Privacy Policy </a></td>
                             <td><input type="checkbox" name="pp_accepted" required></td>
                         </tr>
