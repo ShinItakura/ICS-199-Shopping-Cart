@@ -31,7 +31,7 @@
   print "<h3>Successfully Charged $total</h3>";
 
   $datetime = date("Y-m-d H:i:s");
-  $query = "INSERT INTO PURCHASE (USER_id, orderDate) VALUES ($userid, '$datetime');
+  $query = "INSERT INTO PURCHASE (USER_id, orderDate, total) VALUES ($userid, '$datetime', $total);
             SELECT LAST_INSERT_ID();";
   mysqli_multi_query($dbc, $query);
   mysqli_next_result($dbc);
