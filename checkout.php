@@ -28,7 +28,8 @@
       'amount'   => $total*100,
       'currency' => 'cad'
   ));
-  print "<h3>Successfully Charged $total</h3>";
+  $total_str = number_format($total, 2, '.', '');
+  print "<h3>Successfully Charged $total_str;</h3>";
 
   $datetime = date("Y-m-d H:i:s");
   $query = "INSERT INTO PURCHASE (USER_id, orderDate, total) VALUES ($userid, '$datetime', $total);
