@@ -8,7 +8,17 @@ setlocale(LC_MONETARY,"en_US"); // US national format (see : http://php.net/mone
 
 <head>
 <title>Review Your Cart Before Buying</title>
-<!--<script src="jquery/jquery-1.10.2.js" type="text/javascript"></script> -->
+<script src="jquery/jquery-1.10.2.js" type="text/javascript"></script>
+<script>
+	function checkQuantity(number, id) {
+		if (number <= 1) {
+			var decid = "dec"+id;
+			document.getElementById(decid).href = "view_cart.php?case=rem&id="+id;
+		} else {
+			document.getElementById("dec").href = "view_cart.php?case=dec&id="+id;
+		}
+	}
+	</script>
 </head>
 <body>
 <h3 style="text-align:center">Review Your Cart Before Buying</h3>
@@ -42,19 +52,29 @@ function remove ($id, $userid, $dbc) {
 	
 }
 
+function emptyCart($userid, $dbc) {
+	$query = "delete from CART where USER_id=$userid;";
+	mysqli_query($dbc, $query);
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 	$case = $_GET["case"];
-	$id = $_GET["id"];
-	switch ($case) {
-		case "inc":
-			increment($id, $userid, $dbc);
-			break;
-		case "dec":
-			decrement($id, $userid, $dbc);
-			break;
-		case "rem":
-			remove($id, $userid, $dbc);
-			break;
+	if ($case == "emp") {
+		emptyCart($userid, $dbc);
+	} else {
+		$id = $_GET["id"];	
+		switch ($case) {
+			case "inc":
+				increment($id, $userid, $dbc);
+				break;
+			case "rem":
+				remove($id, $userid, $dbc);
+				break;
+						default:
+				decrement($id, $userid, $dbc);
+				break;
+
+		}
 	}	
 }
 ?>
@@ -137,46 +157,40 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 		$subtotal += $price*$quantity;		
 		?>
 		
-				<!--Decrement button-->
-		<td><a href="view_cart.php?case=dec&id=<?php echo $id; ?>" onclick="checkQuantity(<?php echo $quantity; ?>,<?php $id; ?>)">-</a></td>
-	<!--	<td><button onclick='decrement()'>-</button></td>	-->
-	<!--	<td><input type='submit' name='sub-<?php echo "$id"; ?>' value='-'/></td> -->
-	<!--	echo "<td><div class='btn-increment-decrement' onClick='increment_quantity'>-</div></td>";-->
+				<!--Decrement button		href="view_cart.php?case=dec&id=<//?php echo $id; ?>"-->
+		<td><a href="view_cart.php?case=dec&id=<?php echo $id; ?>" id="dec<?php echo $id; ?>" onclick="checkQuantity(<?php echo "$quantity, $id"; ?>)" class="btn btn-default">-</a></td>
 		
 				<!-- Quantity column-->
 		<td><?php echo "$quantity"; ?></td>
 	
 				<!--Increment button-->
-		<td><a href="view_cart.php?case=inc&id=<?php echo $id; ?>">+</a></td>
-	<!--	<td><button onclick='increment($id)' name='add'>+</button></td>		
+		<td><a href="view_cart.php?case=inc&id=<?php echo $id; ?>" class="btn btn-default">+</a></td>
+
 	<!--	<td><input type='submit' name='add' value='+'/></td> 	-->
 
 				<!--Remove button-->
-		<td><a href="view_cart.php?case=rem&id=<?php echo $id; ?>">Remove</a></td>
+		<td><a href="view_cart.php?case=rem&id=<?php echo $id; ?>" class="btn btn-default">Remove</a></td>
 	<!--	<td><button onclick='remove($id)'>Remove</button></td>		-->
-	<!--	<td><input type='submit' name="remove" value='Remove' id='<?php echo "$id"; ?>'/></td> 
-	<!--	echo "<td><a href=\"#\" class=\"remove-item\" data-code=\"$id\">&times;</a></li></td>";		-->
 
 		</tr>
-	<?php } ?>
+	<?php }
+	
+	$tax = number_format($subtotal*0.05,2, '.', '');
+	$total = number_format($subtotal*1.05,2, '.', '');
+
+	?>
 	
 	</table>
-	<p>Subtotal = <?php echo $subtotal; ?> </p>
-	<p>GST = <?php echo $subtotal*0.05; ?> </p>
-	<p>Total = <?php echo $subtotal*1.05; ?> </p>
+	<p>Subtotal = <?php echo number_format($subtotal,2, '.', ''); ?> </p>
+	<p>GST = <?php echo $tax ?> </p>
+	<p>Total = <?php echo $total ?> </p>
+	<?php //echo round($subtotal*1.05,2); ?>
 	</form>
 	<br>
 	<form action="checkout.php" method="POST">
 		<input type="submit" name ="checkout" value="Check-out" />
 	</form>	
-	
-<!--	<script>
-		function checkQuantity(number, id) {
-			if (number <= 1) {
-				window.location.href = "view_cart.php?case=rem&id="+id;
-			}
-		}
-	</script>	-->
+	<p><a href="view_cart.php?case=emp" class="btn btn-default">Empty Cart</a></p> 
 	
 	<?php
 /*}else{
