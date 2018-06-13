@@ -37,7 +37,7 @@
   mysqli_multi_query($dbc, $query);
   mysqli_next_result($dbc);
   $result = mysqli_store_result($dbc);
-  $orderid = mysqli_fetch_array($result)[0];
+  $orderid = mysqli_fetch_array($result); //issues here paul fix please
 
   $query = "SELECT ITEM_id, quantity FROM CART WHERE USER_id = $userid;";
 
@@ -56,7 +56,7 @@
   // creates or opens file at location
   $fileHandler = fopen($file, 'w') or die("can't open file");
   // database query for order goes here
-  $q = "SELECT u.id, fname, lname, email, i.name, o.quantity, orderDate FROM USER u, PURCHASE p, ITEM i, ORDERITEM o, CART c WHERE u.id = p.USER_id AND c.USER_id = p.USER_id AND c.ITEM_id = o.ITEM_id AND i.id = o.ITEM_id AND c.quantity = o.quantity AND p.id = o.PURCHASE_id AND u.id = '$userid' AND p.id = '$orderid';";
+  $q = "SELECT u.id, fname, lname, email, i.name, i.price, o.quantity, orderDate, p.total FROM USER u, PURCHASE p, ITEM i, ORDERITEM o, CART c WHERE u.id = p.USER_id AND c.USER_id = p.USER_id AND c.ITEM_id = o.ITEM_id AND i.id = o.ITEM_id AND c.quantity = o.quantity AND p.id = o.PURCHASE_id AND u.id = '$userid' AND p.id = '$orderid';";
   // kill when error running query
   if(!$res = $dbc->query($q)){
       die('There was an error running the query ['. $dbc->error.']');
@@ -70,9 +70,13 @@
   $lname = $row['lname'];
   $email = $row['email'];
   $oDate = $row['orderDate'];
+  $total = $row['total'];
   // writes send address email
-  $sendAdd = "$email\n\n";
+  $sendAdd = "Email Address : $email\n\n";
   fwrite($fileHandler, $sendAdd);
+  // writes heading for user id, first, and last names
+  $userHeading = "User ID | User Name";
+  fwrite($fileHandler, $userHeading);
   // writes users first and last names
   $rQUser = "$userid $fname $lname\n\n";
   fwrite($fileHandler, $rQUser);
@@ -80,25 +84,31 @@
   $dateTime = "$datetime\n\n";
   fwrite($fileHandler, $dateTime);
   // writes heading of product
-
-  $heading = "Quantity | Item Name\n";
+  $heading = "Quantity | Price | Item Name\n";
   fwrite($fileHandler, $heading);
-  $underline = "______________________\n";
+  // write underline
+  $underline = "________________________________________________________________________________\n";
   fwrite($fileHandler, $underline);
   // writes order item(s) using a while loop
   while ($row = mysqli_fetch_array($rq)){
       $iQuan = $row['quantity'];
       $iName = $row['name'];
-      $order = "$iQuan     $iName\n";
+      $iPrice = $row['price'];        
+      $order = "$iQuan     $price     $iName\n";
       fwrite($fileHandler, $order);
   }
+  // writes underline    
+  fwrite($fileHandler, $underline);
+  // writes price total
+  $totalCost = "                                                                 Total : $total\n";
+  fwrite($fileHandler, $totalCost);
   // Write to text file email message confirmation
   $txt = "\nThank you for your purchase! We have confirmed that we received your payment, and now processing your order. We hope to ship your order as soon as possible. Due to excess orders during this time please be patient with us. We will send you a tracking number as soon as shipping commences. Have a great day!";
   fwrite($fileHandler, $txt);
   fclose($fileHandler);
 
   // Empty the cart after the order is done
-  $query = "DELETE FROM CART WHERE USER_id = $userid;";
+$query = "DELETE FROM CART WHERE USER_id = $userid;";
   mysqli_query($dbc, $query);
 
   include('footer.php');
