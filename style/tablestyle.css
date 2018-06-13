@@ -1,10 +1,15 @@
 table {
-	width: 75%;
+	width: 50%;
 }
 
 th {
 	text-align: center;
 	padding: 15px;
+}
+
+tr.blank_row {
+	height: 10px !important;
+    background-color: red;
 }
 
 td {
