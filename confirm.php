@@ -5,8 +5,8 @@ include ('mysqli_connect.php');
 // on checkout click send order data to a text file
 
 // database query for order goes here
-$q = "SELECT u.id, fname, lname, email, i.name, o.quantity, orderDate FROM USER u, PURCHASE p, ITEM i, ORDERITEM o, CART c WHERE u.id = p.USER_id AND c.USER_id = p.USER_id AND c.ITEM_id = o.ITEM_id AND i.id = o.ITEM_id AND c.quantity = o.quantity AND p.id = o.PURCHASE_id AND email = 'rcust@gmail.com' AND orderDate = '2018-06-12 23:20:26.000000';";
-
+$q = "SELECT u.id, fname, lname, email, i.name, o.quantity, orderDate FROM USER u, PURCHASE p, ITEM i, ORDERITEM o, CART c WHERE u.id = p.USER_id AND c.USER_id = p.USER_id AND c.ITEM_id = o.ITEM_id AND i.id = o.ITEM_id AND c.quantity = o.quantity AND p.id = o.PURCHASE_id AND email = '{$_POST['email']}' AND orderDate = '{$_POST['orderDate']}';";
+// kill when error running query
 if(!$result = $dbc->query($q)){
     die('There was an error running the query ['. $dbc->error.']');
 }
@@ -20,8 +20,8 @@ while($row = $result->fetch_assoc()){
 }
 // Get selected info from database
 $rq = mysqli_query($dbc,$q);
-// root directory where file should be created and stored
-$file = "/home/student/cst136/myfiles/testreceipt.txt";
+// root directory where file should be created and stored for security measures myfiles directory is set to CHMOD 777
+$file = "/home/student/cst136/myfiles/{$_POST['id']}{$_POST['fname']}{$_POST['lname']}{$_POST['orderDate']}.txt";
 // creates or opens file at location
 $fileHandler = fopen($file, 'w') or die("can't open file");
 // writes send address email
