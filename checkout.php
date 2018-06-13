@@ -40,6 +40,7 @@
   $orderid = mysqli_fetch_array($result)[0];
 
   $query = "SELECT ITEM_id, quantity FROM CART WHERE USER_id = $userid;";
+
   $result = mysqli_query($dbc, $query);
   while ($row = mysqli_fetch_array($result)) {
     $itemid = $row['ITEM_id'];
