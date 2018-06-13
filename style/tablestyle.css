@@ -1,0 +1,23 @@
+table {
+	width: 75%;
+}
+
+th {
+	text-align: center;
+	padding: 15px;
+}
+
+td {
+	text-align: center;
+	padding-right: 10px;
+	padding-left: 10px;	
+}
+
+td.product {
+	text-align: left;
+	width: 50em;
+}
+
+td.total {
+	text-align: right;
+}

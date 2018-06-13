@@ -8,156 +8,97 @@ setlocale(LC_MONETARY,"en_US"); // US national format (see : http://php.net/mone
 
 <head>
 <title>Review Your Cart Before Buying</title>
+<link rel="stylesheet" href="style/tablestyle.css">
 <script src="jquery/jquery-1.10.2.js" type="text/javascript"></script>
 <script>
 	function checkQuantity(number, id) {
 		if (number <= 1) {
 			var decid = "dec"+id;
 			document.getElementById(decid).href = "view_cart.php?case=rem&id="+id;
-		} else {
-			document.getElementById("dec").href = "view_cart.php?case=dec&id="+id;
 		}
 	}
-	</script>
+</script>
 </head>
+
 <body>
 <h3 style="text-align:center">Review Your Cart Before Buying</h3>
 
 <?php
-//  	 ini_set('display_errors',1);
+$userid = $_SESSION["userid"];		// Get userid from session
 
-$userid = $_SESSION["userid"];
-function increment($id, $userid, $dbc) {
-
+function increment($id, $userid, $dbc) {		// Increment quantity of an item
 	$query = "update CART set quantity = quantity + 1 where USER_id=$userid and ITEM_id=$id;";
 	mysqli_query($dbc, $query);
-
 }
 
-function decrement($id, $userid, $dbc) {
+function decrement($id, $userid, $dbc) {		// Decrement quantity of an item
 	$check = "select quantity from CART where USER_id=$userid and ITEM_id=$id;";	
 	$number =  (int)mysqli_query($dbc, $check);
-//	echo "<p><h3>number = $number</h3></p>";
 	$query = "update CART set quantity = quantity - 1 where USER_id=$userid and ITEM_id=$id;";
-/*	if ($number <= 1) {
-		remove($id, $userid, $dbc);
-	} else {	*/
-		mysqli_query($dbc, $query);
-//	}
-}
-
-function remove ($id, $userid, $dbc) {
-	$query = "delete from CART where USER_id=$userid and ITEM_id=$id;";
 	mysqli_query($dbc, $query);
-	
 }
 
-function emptyCart($userid, $dbc) {
+function remove ($id, $userid, $dbc) {		// Remove item
+	$query = "delete from CART where USER_id=$userid and ITEM_id=$id;";
+	mysqli_query($dbc, $query);	
+}
+
+function emptyCart($userid, $dbc) {			// Empty all items from cart
 	$query = "delete from CART where USER_id=$userid;";
 	mysqli_query($dbc, $query);
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-	$case = $_GET["case"];
-	if ($case == "emp") {
+	$case = $_GET["case"];		// Get the function that should be performed
+	if ($case == "emp") {		// Empty
 		emptyCart($userid, $dbc);
-	} else {
-		$id = $_GET["id"];	
+	} else {	
+		$id = $_GET["id"];		// Get the ID of item acted upon
 		switch ($case) {
-			case "inc":
+			case "inc":			// Increment
 				increment($id, $userid, $dbc);
 				break;
-			case "rem":
+			case "rem":			// Remove
 				remove($id, $userid, $dbc);
 				break;
-						default:
+			default:			// Decrement
 				decrement($id, $userid, $dbc);
 				break;
 
 		}
 	}	
 }
+$getItems = "SELECT i.id, i.name, i.price, c.quantity FROM ITEM i INNER JOIN CART c ON i.id = c.ITEM_id WHERE USER_id=$userid;";
+$result = mysqli_query($dbc, $getItems);	// Get items from database
+if (!empty ($result)) {
 ?>
 
+	<form action='view_cart.php' method='GET'>
+	<table align="center">
+<!--	<th>id</th>	-->
+	<th>Product</th>
+	<th>Price</th>
+<!--		<th>Decrease</th>-->
+	<th colspan="3">Quantity</th>
+<!--		<th>Increase</th>-->
+	<th>Remove</th>
+	
 <?php
-//SESSION STUFF
-/*
-//if(isset($_SESSION["products"]) && count($_SESSION["products"])>0){
-	$total 			= 0;
-	$list_tax 		= '';
-	$cart_box 		= '<ul class="view-cart">';
 
-	$currency = '&#36; '; //currency symbol
-	$shipping_cost = 1.50; //shipping cost
-	$taxes = array('GST' => 5);
-
-	foreach($_SESSION["products"] as $product){ //Print each item, quantity and price.
-		$name = $product["name"];
-		$quantity = $product["quantity"];
-		$price = $product["price"];
-		$id = $product["id"];
-		// $product_color = $product["product_color"];
-		// $product_size = $product["product_size"];
-
-		$item_price 	= sprintf("%01.2f",($price * $quantity));  // price x qty = total item price
-
-		$cart_box 		.=  "<li> $id &ndash;&ndash;  $name (Qty : $quantity ) <span> $currency $price </span></li>";
-
-		$subtotal 		= ($price * $quantity); //Multiply item quantity * price
-		$total 			= ($total + $subtotal); //Add up to total price
-	}
-
-	$grand_total = $total + $shipping_cost; //grand total
-
-	foreach($taxes as $key => $value){ //list and calculate all taxes in array
-			$tax_amount 	= round($total * ($value / 100));
-			$tax_item[$key] = $tax_amount;
-			$grand_total 	= $grand_total + $tax_amount;
-	}
-
-	foreach($tax_item as $key => $value){ //taxes List
-		$list_tax .= $key. ' '. $currency. sprintf("%01.2f", $value).'<br />';
-	}
-
-	$shipping_cost = ($shipping_cost)?'Shipping Cost : '.$currency. sprintf("%01.2f", $shipping_cost).'<br />':'';
-
-
-	//Print Shipping, VAT and Total
-	$cart_box .= "<li class=\"view-cart-total\">$shipping_cost  $list_tax <hr>Payable Amount : $currency ".sprintf("%01.2f", $grand_total)."</li>";
-	$cart_box .= "</ul>";
-
-	echo $cart_box;
-//	echo '<button type="submit" name="checkout">Check-out</button>';
-
-*/
-	echo "<form action='view_cart.php' method='GET'>";
-	echo "<table>";
-	echo "<th>id</th>";	
-	echo "<th>Product</th>";	
-	echo "<th>Price</th>";	
-	echo "<th>Decrease</th>";
-	echo "<th>Quantity</th>";
-	echo "<th>Increase</th>";
-	echo "<th>Remove</th>";
-
-	$userid = $_SESSION["userid"];	
-	$getItems = "SELECT i.id, i.name, i.price, c.quantity FROM ITEM i INNER JOIN CART c ON i.id = c.ITEM_id WHERE USER_id=$userid;";
-	$result = mysqli_query($dbc, $getItems);
-
-	$subtotal = 0;
-	while ($row = mysqli_fetch_array($result)) {
+	$subtotal = 0;	// Start subtotal at zero
+	while ($row = mysqli_fetch_array($result)) {	// Display values for each product in cart
 		echo "<tr>";
 		$id = $row["id"];
-		echo "<td>$id</td>";
+//		echo "<td>$id</td>";
 		$name = $row["name"];
-		echo "<td>$name</td>";
+		echo "<td class='product'>$name</td>";
 		$price = $row["price"];
 		echo "<td>$price</td>";
 		$quantity = $row["quantity"];
-		$subtotal += $price*$quantity;		
+		$subtotal += $price*$quantity;	// Add to subtotal	
 		?>
 		
-				<!--Decrement button		href="view_cart.php?case=dec&id=<//?php echo $id; ?>"-->
+				<!--Decrement button-->
 		<td><a href="view_cart.php?case=dec&id=<?php echo $id; ?>" id="dec<?php echo $id; ?>" onclick="checkQuantity(<?php echo "$quantity, $id"; ?>)" class="btn btn-default">-</a></td>
 		
 				<!-- Quantity column-->
@@ -173,31 +114,40 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 	<!--	<td><button onclick='remove($id)'>Remove</button></td>		-->
 
 		</tr>
-	<?php }
+		
+	<?php 
+	}
 	
-	$tax = number_format($subtotal*0.05,2, '.', '');
-	$total = number_format($subtotal*1.05,2, '.', '');
+	$tax = number_format($subtotal*0.05,2, '.', '');	// Compute taxes
+	$total = number_format($subtotal*1.05,2, '.', '');	// Compute total
 
 	?>
-	
+	<hr>
+	<tr>
+	<td class="total">Subtotal: </td>
+	<td> <?php echo number_format($subtotal,2, '.', ''); ?> </td>
+	</tr>
+	<tr>
+	<td class="total">Tax: </td>
+	<td> <?php echo $tax ?> </td>	
+	</tr>
+	<hr>
+	<tr>
+	<td class="total">Subtotal: </td>
+	<td> <?php echo $total ?> </td>		
+	<td colspan="3"></td>
+	<td><a href="view_cart.php?case=emp" class="btn btn-default">Empty Cart</a></td>
+	</tr>
 	</table>
-	<p>Subtotal = <?php echo number_format($subtotal,2, '.', ''); ?> </p>
-	<p>GST = <?php echo $tax ?> </p>
-	<p>Total = <?php echo $total ?> </p>
-	<?php //echo round($subtotal*1.05,2); ?>
+	
 	</form>
 	<br>
-	<!--<form action="checkout.php" method="POST">
-		<input type="submit" name="checkout" value="Check-out" />
-	</form>	
-  -->
-	<p><a href="view_cart.php?case=emp" class="btn btn-default">Empty Cart</a></p> 
-	
-	<?php
-/*}else{
-	echo "Your Cart is empty";
-	
-} */
+
+<?php
+} else {
+	echo "Your Cart is empty";	
+} 
+
 ?>
 
 <?php require_once('./config.php'); ?>
