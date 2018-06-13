@@ -5,7 +5,7 @@ include ('mysqli_connect.php');
 // on checkout click send order data to a text file
 
 // database query for order goes here
-$q = "SELECT u.id, fname, lname, email, i.name, quantity, orderDate FROM USER u, PURCHASE p, ITEM i, ORDERITEM WHERE u.id = p.USER_id and email = 'dgreening@camosun.bc.ca';";
+$q = "SELECT u.id, fname, lname, email, i.name, o.quantity, orderDate FROM USER u, PURCHASE p, ITEM i, ORDERITEM o, CART c WHERE u.id = p.USER_id AND c.USER_id = p.USER_id AND c.ITEM_id = o.ITEM_id AND i.id = o.ITEM_id AND c.quantity = o.quantity AND p.id = o.PURCHASE_id AND email = 'rcust@gmail.com' AND orderDate = '2018-06-12 23:20:26.000000';";
 
 if(!$result = $dbc->query($q)){
     die('There was an error running the query ['. $dbc->error.']');
