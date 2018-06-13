@@ -5,7 +5,7 @@ include ('mysqli_connect.php');
 // on checkout click send order data to a text file
 
 // database query for order goes here
-$q = "SELECT u.id, fname, lname, email, i.name, orderDate FROM USER u, PURCHASE p, ITEM i WHERE u.id = p.USER_id and email = 'dgreening@camosun.bc.ca';";
+$q = "SELECT u.id, fname, lname, email, i.name, quantity, orderDate FROM USER u, PURCHASE p, ITEM i, ORDERITEM WHERE u.id = p.USER_id and email = 'dgreening@camosun.bc.ca';";
 
 if(!$result = $dbc->query($q)){
     die('There was an error running the query ['. $dbc->error.']');
@@ -16,7 +16,6 @@ while($row = $result->fetch_assoc()){
     $fname = $row['fname'];
     $lname = $row['lname'];
     $email = $row['email'];
-    $iName = $row['name'];
     $oDate = $row['orderDate'];
 }
 // Get selected info from database
@@ -26,16 +25,28 @@ $file = "/home/student/cst136/myfiles/testreceipt.txt";
 // creates or opens file at location
 $fileHandler = fopen($file, 'w') or die("can't open file");
 // writes send address email
-//$sendAdd = "$email\n";
-//$fwrite($fileHandler, $sendAdd);
+$sendAdd = "$email\n\n";
+fwrite($fileHandler, $sendAdd);
 // writes users first and last names
-$rQUser = "$fname $lname\n";
+$rQUser = "$userID $fname $lname\n\n";
 fwrite($fileHandler, $rQUser);
-// writes order item and datetime
-$order = "$iName $oDate\n";
-fwrite($fileHandler, $order);
+// writes order datetime
+$dateTime = "$oDate\n\n";
+fwrite($fileHandler, $dateTime);
+// writes heading of product
+$heading = "Quantity | Item Name\n";
+fwrite($fileHandler, $heading);
+$underline = "______________________\n";
+fwrite($fileHandler, $underline);
+// writes order item(s) using a while loop
+while ($row = mysqli_fetch_array($rq)){
+    $iQuan = $row['quantity'];
+    $iName = $row['name'];
+    $order = "$iQuan     $iName\n";
+    fwrite($fileHandler, $order);
+}
 // Write to text file email message confirmation
-$txt = "Thank you for your purchase! We have confirmed that we received your payment, and now processing your order. We hope to ship your order as soon as possible. Due to excess orders during this time please be patient with us. We will send you a tracking number as soon as shipping commences. Have a great day!";
+$txt = "\nThank you for your purchase! We have confirmed that we received your payment, and now processing your order. We hope to ship your order as soon as possible. Due to excess orders during this time please be patient with us. We will send you a tracking number as soon as shipping commences. Have a great day!";
 fwrite($fileHandler, $txt);
 fclose($fileHandler);
     // recommended by Jon 
