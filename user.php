@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Page Title</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-<style>
+
+
+ 
+
 <style>
 * {
 		box-sizing: border-box;
@@ -98,90 +94,113 @@ table td {
 		}
 }
 </style>
-</head>
+
+<?php include('header.php'); ?>
+
 <body>
+<br>
+ <div class="row">
+	<div class="side">
+			<h2 align="center">My Account</h2>
+			
+			<div class="fakeimg" style="height:500px;" align="center"><img src="images/user_2.png" alt="Image" position="center">
+				
+			</div>
+			
+	</div>
+			<div class="main">
+				<h2><i class="fas fa-user"></i>&nbsp;Personal Information</h2>		
+			<div class="fakeimg" style="height:1000px;">
+
+
+
 <?php
-
+session_start();
 ini_set('display_errors',1);
+include 'mysqli_connect.php';
 
-$query1= mysql_query("SELECT * FROM USERS WHERE username = $_SESSION['username']");
-$result1=mysql_query($dbc, $query1);
+$db = mysqli_connect('localhost', 'cst107','446287', 'ICS199Group13_dev');
+$query =  "SELECT * FROM USER WHERE id = " . $_SESSION['userid'] . ";";
+				
+$result=mysqli_query($db, $query);
 
-while($userData = mysqli_fetch_array($results1)){
-echo '<form action="order.php" method="POST">';
 
-echo '<table>';
+while($userData = mysqli_fetch_array($result)){
 	
-	echo '<tbody>';
-		echo '<tr>'; 
+	
+//echo'<form action="user.php" method="POST">';
+
+echo'<table>';
+	
+	echo'<tbody>';
+		echo'<tr>'; 
 		    echo '<th scope="col">User ID</th>';
 			echo '<td>'.$userData['id'].'</td>';						
 		echo'</tr>';
-	echo '</tbody>';
+	echo'</tbody>';
 	
-	echo '<tbody>';
-		echo '<tr>';
+	echo'<tbody>';
+		echo'<tr>';
 			echo'<th scope="col">First Name</th>';
 			echo '<td>'.$userData['fname'].'</td>';	
 		echo'</tr>';			
-	echo '</tbody>';
+	echo'</tbody>';
 	
-	echo '<tbody>';
+	echo'<tbody>';
 		echo '<tr>';
 			echo'<th scope="col">Last Name</th>';
 			echo '<td>'.$userData['lname'].'</td>';	
 		echo'</tr>';				
-	echo '</tbody>';
+	echo'</tbody>';
 	
-	echo '<tbody>';
+	echo'<tbody>';
 		echo '<tr>';
 			echo'<th scope="col">Address</th>';
-			echo '<td>'.$userData['street_address'].'</td>';	
+			echo'<td>'.$userData['address'].'</td>';	
 		echo'</tr>';				
-	echo '</tbody>';
+	echo'</tbody>';
 	
-	echo '<tbody>';
-		echo '<tr>';
-			echo'<th scope="col">City</th>';
-			echo '<td>'.$userData['city'].'</td>';	
-		echo'</tr>';				
-	echo '</tbody>';
 	
-	echo '<tbody>';
-		echo '<tr>';
+	
+	echo'<tbody>';
+		echo'<tr>';
 			echo'<th scope="col">Country</th>';
-			echo '<td>'.$userData['counrty'].'</td>';
+			echo'<td>'.$userData['country'].'</td>';
 		echo'</tr>';				
-	echo '</tbody>';
+	echo'</tbody>';
 	
-	echo '<tbody>';
-		echo '<tr>';
+	echo'<tbody>';
+		echo'<tr>';
 			echo'<th scope="col">Postal Code</th>';
-			echo '<td>'.$userData['postalcode'].'</td>';	
+			echo'<td>'.$userData['postcode'].'</td>';	
 		echo'</tr>';				
-	echo '</tbody>';
+	echo'</tbody>';
 	
-echo '</table>';
-?>
+echo'</table>';
+echo'</form>';
 
-<?php
 
-$query2 =mysql_query("SELECT * 
-        FROM USERS 
-		JOIN ORDERS ON
-		USERS.id=ORDERS.id
-		JOIN items ON
-		ORDERS.id=items.id		
-		WHERE USERS.username = $_SESSION['username']
-		AND ORDER BY orderDate DESC;");
+}
 
-// "SELECT i.name,i.price,o.orderDate,o.ORDERS_id FROM ORDER o, ITEM i GROUP BY ORDERS_id ORDER BY orderDate DESC;";
 
-$result2=mysql_query($dbc, $query2);
 
-while($orderData = mysqli_fetch_array($results2)){
-echo '<form action="order.php" method="POST">';
+//include 'mysqli_connect.php';
+//$db = mysqli_connect('localhost', 'cst107','446287', 'ICS199Group13_dev');
 
+//$query =  "SELECT * FROM USER WHERE id = " . $_SESSION['userid'] . ";";
+
+
+
+$query2 ="select USER_id, ITEM_id, PURCHASE_id,quantity
+			from ORDERITEM, PURCHASE 
+			where PURCHASE.id = ORDERITEM.PURCHASE_id
+			and PURCHASE.USER_id = " . $_SESSION['userid'] . " order by PURCHASE_id , ITEM_id";
+			
+#print "<h3> query2 = " . $query2 . "</h3>";			
+			
+$result2=mysqli_query($dbc, $query2);
+
+echo "<br>";
 echo '<table border="1">';
 	echo '<tr>';
 		echo '<th>Order ID</th>';
@@ -190,49 +209,30 @@ echo '<table border="1">';
 		echo '<th>Price</th>';
 		echo '<th>Order Date</th>';
 	echo '</tr>';
-	
-	echo '<td>'.$orderData['ORDERS.ORDERS_id'].'</td>';
-	echo '<td>'.$orderData['ITEM.ITEM_id'].'</td>';
-	echo '<td>'.$orderData['USERS.name'].'</td>';
-	echo '<td>'.$orderData['ITEM.price'].'</td>';
-	echo '<td>'.$orderData['ORDERS.orderDate'].'</td>';
-echo '</table>';
 
+while($orderData = mysqli_fetch_array($result2)){
+	echo "<tr>";
+	echo '<td>'.$orderData['PURCHASE_id'].'</td>';
+	echo '<td>'.$orderData['ITEM_id'].'</td>';
+	echo '<td>'.$orderData['USER_id'].'</td>';
+	echo '<td>'.$orderData['quantity'].'</td>';
+	echo '<td> put something here </td>';
+	echo "</tr>";
 }
 
-?>
+echo '</table>';
+echo '</form>';
 
 
-// Use Session username
-$query = mysql_query("SELECT * FROM USERS WHERE username = $_SESSION['username']");
+?> 
 
 
-// Two
-$query1 = mysql_query("SELECT USERS.fname , USERS.lname , ORDERS.CART_id
-		 FROM USERS ,ORDERS
-         WHERE ORDERS.id = USERS.id
-         AND USERS.username = $_SESSION['username']");
-
-// Two
-$query1 = mysql_query("SELECT ITEM.id, ITEM.name, ITEM.name, ORDERS.CART_id
-		    FROM USERS ,ORDERS
-			WHERE ORDERS.id = USERS.id
-			AND USERS.username = $_SESSION['username']");
+        </div>			
+	</div>
+</div>
 
 
-
-// Three way
-$query2 =mysql_query("SELECT * FROM USERS 
-			JOIN ORDERS ON
-			USERS.id=ORDERS.id
-			JOIN items ON
-			ORDERS.id=items.id;");
-
-// Three way
-$query3 = mysql_query("Select USERS.lname, ORDERS.id, item.id   // Select *
-			INNER JOIN TICKETS ON USERS.id = ORDERS.id
-			INNER JOIN CUSTOMERS ON ORDERS.id = cart.id
-			ORDER BY orderDate DESC;"); 
+<? include('footer.php'); ?>
 
 
 
