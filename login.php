@@ -99,10 +99,10 @@
               <br>
               <!--CR02 update to include a privacy policy acceptance and link to a new privacy policy page-->
               <!--accept the privacy policy with auto accept set for radio button-->
-              <input type="radio" name="privacypolicy" value="accept" checked> I accept <a href="agreement.php">terms of service</a>.
+              <input type="radio" name="privacypolicy" value="accept"> I accept <a href="agreement.php">terms of service</a>.
               <br>
               <!--declines the privacy policy user must make the choice to unaccept it-->
-              <input type="radio" name="privacypolicy" value="donotaccept"> I do not accept <a href="agreement.php">terms of service</a>.
+              <input type="radio" name="privacypolicy" value="donotaccept" checked> I do not accept <a href="agreement.php">terms of service</a>.
               <br>
               <button type="submit">Login</button>
           </div>

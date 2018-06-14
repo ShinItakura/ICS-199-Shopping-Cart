@@ -37,7 +37,7 @@
   mysqli_multi_query($dbc, $query);
   mysqli_next_result($dbc);
   $result = mysqli_store_result($dbc);
-  $orderid = mysqli_fetch_array($result); //issues here paul fix please
+  $orderid = mysqli_fetch_array($result)[0];
 
   $query = "SELECT ITEM_id, quantity FROM CART WHERE USER_id = $userid;";
 
@@ -75,26 +75,28 @@
   $sendAdd = "Email Address : $email\n\n";
   fwrite($fileHandler, $sendAdd);
   // writes heading for user id, first, and last names
-  $userHeading = "User ID | User Name";
+  $userHeading = "User ID | User Name\n";
   fwrite($fileHandler, $userHeading);
+  // writes underline
+  $underline = "________________________________________________________________________________\n";
+  fwrite($fileHandler, $underline);
   // writes users first and last names
-  $rQUser = "$userid $fname $lname\n\n";
+  $rQUser = "$userid      | $fname $lname\n\n";
   fwrite($fileHandler, $rQUser);
   // writes order datetime
-  $dateTime = "$datetime\n\n";
+  $dateTime = "Order Date : $datetime\n\n";
   fwrite($fileHandler, $dateTime);
   // writes heading of product
   $heading = "Quantity | Price | Item Name\n";
   fwrite($fileHandler, $heading);
   // write underline
-  $underline = "________________________________________________________________________________\n";
   fwrite($fileHandler, $underline);
   // writes order item(s) using a while loop
   while ($row = mysqli_fetch_array($rq)){
       $iQuan = $row['quantity'];
       $iName = $row['name'];
       $iPrice = $row['price'];        
-      $order = "$iQuan     $price     $iName\n";
+      $order = "$iQuan      | $iPrice | $iName\n";
       fwrite($fileHandler, $order);
   }
   // writes underline    
@@ -102,13 +104,15 @@
   // writes price total
   $totalCost = "                                                                 Total : $total\n";
   fwrite($fileHandler, $totalCost);
+  // writes underline
+  fwrite($fileHandler, $underline);
   // Write to text file email message confirmation
-  $txt = "\nThank you for your purchase! We have confirmed that we received your payment, and now processing your order. We hope to ship your order as soon as possible. Due to excess orders during this time please be patient with us. We will send you a tracking number as soon as shipping commences. Have a great day!";
+  $txt = "\nThank you for your purchase! We have confirmed that we received your payment,\n and now processing your order. We hope to ship your order as soon as possible.\n Due to excess orders during this time please be patient with us.\n We will send you a tracking number as soon as shipping commences.\n Have a great day!";
   fwrite($fileHandler, $txt);
   fclose($fileHandler);
 
   // Empty the cart after the order is done
-$query = "DELETE FROM CART WHERE USER_id = $userid;";
+  $query = "DELETE FROM CART WHERE USER_id = $userid;";
   mysqli_query($dbc, $query);
 
   include('footer.php');
