@@ -11,9 +11,24 @@
 
 <head>
 	<title>Add Product</title>
+	<style>
+    table#addtable{
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    } 
+</style>
 </head>
 <body>
-
+	<h2>Add a Product</h2>
 <?php
 /* This script displays and handles an HTML form. This script takes a file upload and stores it on the server. */
 if ($_SERVER['REQUEST_METHOD'] == 'POST') { // Handle the form.
@@ -68,26 +83,80 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') { // Handle the form.
 	
 	
 		// Connect to Database
-		$db = mysqli_connect('localhost', 'cst107','446287', 'ICS199Group13_dev');
+//		$db = mysqli_connect('localhost', 'cst107','446287', 'ICS199Group13_dev');
 		// Create insert query
 		$query = "insert into ITEM (name, AXLE_id, MATERIAL_id, SHAPE_id, price, image, color, manufacturer, description)
 		values('$name', '$axle', '$mat', '$shape', CAST('$price' AS DECIMAL(5,2)), '$pic', '$color', '$manu', '$desc');";
 		//NOW()
 		// Run insert query
-		if (@mysqli_query($db, $query)) {
+		if (@mysqli_query($dbc, $query)) {
 			?>
-			<p><h3>The product "<?php echo "$name" ?>" has been successfully added.</h3></p>';
+			<p><h3>The product "<?php echo "$name" ?>" has been successfully added.</h3></p>
 			<?php
 		} else {
-			print '<p>The product could not be added because:<br>' . mysqli_error($db) . '.</p>';
-			print '<p>The query being run was: ' . $query . '</p>'; 
+			print '<p>The product could not be added because:<br>' . mysqli_error($dbc) . '.</p>';
+		//	print '<p>The query being run was: ' . $query . '</p>'; 
 		}	
 	}
 }
 ?>
-
-<form action="addproduct.php" enctype="multipart/form-data" method="POST">
-
+<div class="content">
+	<form action="addproduct.php" enctype="multipart/form-data" method="POST">
+		 <div class="container">
+			<table id="addtable">
+				<tr>
+					<td>Name: </td>
+					<td> <input type="text" name="name" required maxlength="45" pattern="[^']*[A-Za-z][^']*"/> </td>
+				</tr>
+				<tr>
+					<td>Description: </td>
+					<td> <input type="textarea" name="description" /> </td>
+				</tr>
+				<tr>	
+					<td>Price: </td>
+					<td> $ <input type="number" step=".01" name="price" required/> </td>
+				</tr>
+				<tr>	
+					<td>Picture: </td>
+					<td> <input type="hidden" name="MAX_FILE_SIZE" value="300000"> <input type="file" name="picture" required/> </td>
+				</tr>
+				<tr>
+					<td>Shape: </td>
+					<td> <select name="shape">
+						<option value="1" selected>Butterfly</option>
+						<option value="2">Classic</option>
+						<option value="3">Imperial</option>
+						<option value="4">Modified</option>
+					</select> </td>
+				</tr>					
+				<tr>
+					<td>Color: </td>
+					<td> <input type="text" name="color" required/> </td>
+				</tr>
+				<tr>
+					<td>Material: </td>
+					<td> <select name="material">
+						<option value="1" selected>Metal</option>
+						<option value="2">Plastic</option>
+						<option value="3">Wood</option>
+					</select> </td>
+				</tr>
+				<tr>
+					<td>Manufacturer: </td>
+					<td> <input type="text" name="manufacturer" required/> </td>
+				</tr>
+				<tr>
+					<td>Axle: </td>
+					<td> <select name="axle">
+						<option value="1" selected>Ball Bearing</option>
+						<option value="2">Fixed</option>
+						<option value="3">Transaxle</option>
+					</select> </td>
+				</tr>
+			</table>
+		</div>
+				
+<!--	
 	<p>Name: <input type="text" name="name" required maxlength="45" pattern=".*[A-Za-z].*"/></p>
 
 	<p>Description: <input type="textarea" name="description" /></p>
@@ -119,8 +188,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') { // Handle the form.
 		<option value="2">Fixed</option>
 		<option value="3">Transaxle</option>
 	</select> </p>
+-->
+		<input type="submit" value="Submit" />
 
-	<input type="submit" value="Submit" />
-
-</form>
+	</form>
+</div>
 <?php include('footer.php');?>
