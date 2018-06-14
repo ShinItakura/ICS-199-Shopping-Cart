@@ -80,6 +80,7 @@ p.e
 			position: relative; 
 			left:145px;
 			color:#ffffff
+			width: 1000px;
 	}
 p.f
 		  {
@@ -87,6 +88,7 @@ p.f
 			position: relative; 
 			left:145px;
 			color:#cce6ff; // blue
+			width: 1000px;
 	}
 
 		
