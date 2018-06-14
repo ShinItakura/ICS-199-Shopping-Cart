@@ -1,3 +1,7 @@
+<!doctype html>
+<html>
+<head>
+<title>Login</title>
 <?php
   function endsWith($str, $substr) {
     $length = strlen($substr);
@@ -75,13 +79,12 @@
     }
   }
 ?>
-
+<?php include('header.php');?>
 <head>
-    <title>Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="style/login.css">
 </head>
-<?php include('header.php');?>
+
 <body>
 
     <h2>Login Form</h2>
