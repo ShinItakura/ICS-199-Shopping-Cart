@@ -21,14 +21,11 @@
 <script src="jquery/jquery-1.10.2.js" type="text/javascript"></script>
 <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
 
-
 <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
 
-
-<body>
-
- 
+<?php include('nav.php');
+	// head tag ended and body tag started in nav.php
+?>
 
 	<!-- container -->
 	<div class="d"><img src="images/YoYo_LOGO_4.jpg"></div> 
@@ -49,8 +46,6 @@
 		echo "<p class='f'> Welcome $userrole &ensp; $username &ensp;$username2</p>";
 		echo "<p class='f'><a href='user.php' style='color:#ffffff';>&ensp;Go to your account page</a></p>";	
         ?>
-	   </div>
-	   
-	
+	   </div>	   	
 
-<?php include('nav.php');?>
+
