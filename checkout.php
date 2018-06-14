@@ -52,7 +52,7 @@
   // on checkout click send order data to a text file
 
   // root directory where file should be created and stored for security measures myfiles directory is set to CHMOD 777
-  $file = "/home/student/cst136/myfiles/$userid$email$orderid.txt";
+  $file = "/home/student/cst136/myfiles/OrderNum-$orderid-UserID-$userid-Email-$email.txt";
   // creates or opens file at location
   $fileHandler = fopen($file, 'w') or die("can't open file");
   // database query for order goes here
@@ -75,17 +75,21 @@
   $sendAdd = "Email Address : $email\n\n";
   fwrite($fileHandler, $sendAdd);
   // writes heading for user id, first, and last names
-  $userHeading = "User ID | User Name\n";
+  $userHeading = "Order ID | User ID | User Name\n";
   fwrite($fileHandler, $userHeading);
   // writes underline
   $underline = "________________________________________________________________________________\n";
   fwrite($fileHandler, $underline);
-  // writes users first and last names
-  $rQUser = "$userid      | $fname $lname\n\n";
+  // writes order id, user id, and users first and last names
+  $rQUser = "$orderid       | $userid      | $fname $lname\n";
   fwrite($fileHandler, $rQUser);
+  // writes underline
+  fwrite($fileHandler, $underline);
   // writes order datetime
-  $dateTime = "Order Date : $datetime\n\n";
+  $dateTime = "Order Date : $datetime\n";
   fwrite($fileHandler, $dateTime);
+  // writes underline
+  fwrite($fileHandler, $underline);
   // writes heading of product
   $heading = "Quantity | Price | Item Name\n";
   fwrite($fileHandler, $heading);
