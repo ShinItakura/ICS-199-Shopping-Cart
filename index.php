@@ -1,8 +1,10 @@
+<head>
+    <title>Yo Yo Ma's House of Yo-Yos</title>
+</head>
 <?php
 session_start(); //start session
 include_once('mysqli_connect.php');
 include 'header.php';
-
 ?>
 
 <br>
