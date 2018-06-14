@@ -6600,10 +6600,13 @@ button.close {
 
 .pull-right {
   float: right !important;
+  width: 50%;
+  text-align: right;
 }
 
 .pull-left {
   float: left !important;
+  width: 50%
 }
 
 .hide {
