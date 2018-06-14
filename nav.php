@@ -77,9 +77,9 @@ $(document).ready(function(){
 
 });
 </script>
-</head>
+</head>  <!-- Can I get rid of these??? -->
 
-<body>
+<body>   <!-- Can I get rid of these??? -->
 
 <!--mini shopping cart in nav bar-->
 <a href="#"  class="cart-box" id="cart-info" title="View Cart">

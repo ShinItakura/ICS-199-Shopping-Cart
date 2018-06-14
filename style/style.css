@@ -30,6 +30,23 @@ div.c {
     font-size: 150%;
 }
 
+div.d {
+		position: relative;
+		width: 300;
+		left: 150px;
+		top: 10px;
+		height: 175px;
+		
+	}
+div.e {
+			position: relative;
+			width: 50;
+			left: 0px;
+			height: 22px;
+			background-color:rgba(128, 128, 128, 1.0);
+		    
+	}
+
 p {
     width: 140px;
 
@@ -56,6 +73,24 @@ p.d {
     width: 1000px;
     text-align: left;
 }
+
+p.e
+		  {
+			display:inline;  
+			position: relative; 
+			left:145px;
+			color:#ffffff
+	}
+p.f
+		  {
+			display:inline;  
+			position: relative; 
+			left:145px;
+			color:#cce6ff; // blue
+	}
+
+		
+		
 .btn {
     background-color: Red; /* Blue background */
     border: none; /* Remove borders */
@@ -272,4 +307,92 @@ div.form
     text-align: center;
 		width: 300px;
 		height: 450px;
+}
+
+* {
+		box-sizing: border-box;
+}
+
+/* Style the body */
+
+table {
+	border: 1px solid #ccc;
+	border-collapse: collapse;
+	table-layout: fixed;
+	width: 80%;
+}
+table caption {
+	font-size: 1.5em;
+	margin: .5em 0 .75em;
+}
+table tr {
+	border: 1px solid #ddd;
+	padding: .35em;
+}
+table tr:nth-child(even) {
+	background: #f8f8f8;  
+}
+table th,
+table td {
+	padding: .625em;
+	text-align: left;
+}
+table th {
+	background: rgba(125, 125, 125, 1.0); 
+	color: white;
+	font-size: .85em;
+	letter-spacing: .1em;
+	text-transform: uppercase;
+	width: 30%;
+}
+table td {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+
+
+/* Style the navigation bar links */
+
+
+/* Column container */
+.row {  
+		display: flex;
+		flex-wrap: wrap;
+		
+}
+
+/* Create two unequal columns that sits next to each other */
+/* Sidebar/left column */
+.side {
+		flex: 20%;
+		background-color: #f1f1f1;
+		padding: 20px;
+}
+
+/* Main column */
+.main {
+		flex: 75%;
+		background-color: white;
+		padding: 10px;
+		
+		
+}
+
+/* Fake image, just for this example */
+.fakeimg {
+		background-color: white;
+		width: 100%;
+		padding: 20px;
+		height: 1000px;
+}
+
+
+
+/* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 700px) {
+		.row, .navbar {   
+				flex-direction: column;
+		}
 }
