@@ -1,10 +1,10 @@
+<html>
 <head>
     <title>Yo Yo Ma's House of Yo-Yos</title>
-</head>
+
 <?php
-session_start(); //start session
-include_once('mysqli_connect.php');
-include 'header.php';
+//header.php ends head tag and starts body tag
+include('header.php');
 ?>
 
 <br>
