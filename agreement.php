@@ -1,11 +1,10 @@
-<?php
-session_start();
-ini_set('display_errors',1);
-include('header.php');
-?>
 <head>
     <title>Privacy Page</title>
 </head>
+<?php
+//ini_set('display_errors',1);
+include('header.php');
+?>
 <body>
     <!--new privacy policy agreement page user readable agreement below-->
     <div class="agreement"><span>
