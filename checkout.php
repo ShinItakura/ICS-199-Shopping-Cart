@@ -1,3 +1,8 @@
+<!doctype html>
+<html>
+<head>
+  <title>Checkout</title>
+</head>
 <?php
   include('header.php');
   include('mysqli_connect.php');

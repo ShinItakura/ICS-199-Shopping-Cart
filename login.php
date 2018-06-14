@@ -1,3 +1,7 @@
+<!doctype html>
+<html>
+<head>
+<title>Login</title>
 <?php
   function endsWith($str, $substr) {
     $length = strlen($substr);
