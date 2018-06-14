@@ -19,7 +19,7 @@ div.b {
 }
 div.agreement{
     margin: auto;
-    max-width: 700px;
+    max-width: 100%;
     min-width: 700px;
     margin-left: 100px;
     margin-right: 100px;
@@ -40,18 +40,12 @@ div.d {
 	}
 div.e {
 			position: relative;
-			width: 50;
+			width: 100%;
 			left: 0px;
 			height: 22px;
 			background-color:rgba(128, 128, 128, 1.0);
 		    
 	}
-
-p {
-    width: 140px;
-
-
-}
 
 p.b {
 
@@ -59,7 +53,7 @@ p.b {
 }
 
 p.a {
-
+	width: 140px;
     word-break: normal;
 }
 
@@ -171,6 +165,7 @@ ul.products-wrp li .item-box button[disabled=disabled]{
 .cart-box {
 	display: block;
 	width: 50px;
+	height: 32px;
 	background: rgba(219, 0, 33, 1) url(../images/cart-icon.png) no-repeat 20px 5px;
 	padding: 4px 8px 4px 8px;
 	border-radius: 30px;

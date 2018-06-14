@@ -1,8 +1,10 @@
+<html>
+<head>
+    <title>Account</title>
 
 <?php
-session_start(); //start session
-include 'header.php';
-
+//header.php ends head tag and starts body tag
+include('header.php');
 ?>
  
 <br>
@@ -11,32 +13,16 @@ include 'header.php';
 			<h2 align="center">My Account</h2>			
 			<div class="fakeimg" style="height:500px;" align="center"><img src="images/user_2.png" alt="Image" position="center"></div>
    </div>				
-			
-			
-	
+				
 	<div class="main">
-			<h2><i class="fas fa-user"></i>&nbsp;Personal Information</h2>		
+			<h2>&nbsp;Personal Information</h2>		
 		<div class="fakeimg" style="height:1000px;">
 
-
-
 <?php
-
-//ini_set('display_errors',1);
-include 'mysqli_connect.php';
-
-$db = mysqli_connect('localhost', 'cst107','446287', 'ICS199Group13_dev');
 $query =  "SELECT * FROM USER WHERE id = " . $_SESSION['userid'] . ";";
+$result=mysqli_query($dbc, $query);
 
-//echo "<p>$_SESSION['userid']</p>";
-	
-$result=mysqli_query($db, $query);
-
-
-while($userData = mysqli_fetch_array($result)){
-	
-	
-//echo'<form action="user.php" method="POST">';
+while($userData = mysqli_fetch_array($result)) {
 
 echo'<table>';
 	
@@ -87,25 +73,14 @@ echo'<table>';
 echo'</table>';
 echo'</form>';
 
-
 }
-
-
-
-//include 'mysqli_connect.php';
-//$db = mysqli_connect('localhost', 'cst107','446287', 'ICS199Group13_dev');
-
-//$query =  "SELECT * FROM USER WHERE id = " . $_SESSION['userid'] . ";";
-
-
 
 $query2 ="select USER_id, ITEM_id, PURCHASE_id,quantity, name, price
 			from ORDERITEM, PURCHASE, ITEM
 			where PURCHASE.id = ORDERITEM.PURCHASE_id
 			and ITEM.id = ORDERITEM.ITEM_id
 			and PURCHASE.USER_id = " . $_SESSION['userid'] . " order by PURCHASE_id , ITEM_id";
-			
-#print "<h3> query2 = " . $query2 . "</h3>";			
+					
 			
 $result2=mysqli_query($dbc, $query2);
 

@@ -1,11 +1,11 @@
+<html>
 <head>
     <title>Privacy Page</title>
-</head>
 <?php
-//ini_set('display_errors',1);
+//header.php ends head tag and starts body tag
 include('header.php');
 ?>
-<body>
+
     <!--new privacy policy agreement page user readable agreement below-->
     <div class="agreement"><span>
     <h1>Privacy policy</h1>

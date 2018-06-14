@@ -1,12 +1,7 @@
 <?php
-//	ini_set('display_errors',1);
-	session_start();
+//	session_start();
 	// If not 'admin', redirect
-	if ($_SESSION['role'] != 'admin') {
-		header('Location: login.php');
-		die();
-	}
-  include('header.php');
+
 ?>
 
 <head>
@@ -26,8 +21,15 @@
         background-color: #dddddd;
     } 
 </style>
-</head>
-<body>
+
+<?php
+//header.php ends head tag and starts body tag
+	include('header.php');
+	if ($_SESSION['role'] != 'admin') {
+		header('Location: login.php');
+		die();
+	}
+?>
 	<h2>Add a Product</h2>
 <?php
 /* This script displays and handles an HTML form. This script takes a file upload and stores it on the server. */
@@ -37,8 +39,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') { // Handle the form.
 		print '<p style="color: red;">Error. File upload is not an image. Please upload an image.</p>';
 	} else {	// It is an image
 		// Try to move the uploaded file:	
-		//if (move_uploaded_file ($_FILES['the_file']['tmp_name'], "/home/student/cst107/myfiles/{$_FILES['the_file']['name']}")) {	
-		//if (move_uploaded_file ($_FILES['picture']['tmp_name'], "/home/student/cst107/public_html/ICS199/project/images/{$_FILES['picture']['name']}")) {
 		if (move_uploaded_file ($_FILES['picture']['tmp_name'], "images/{$_FILES['picture']['name']}")) {	
 	
 			print '<p>Your picture has been uploaded.</p>';
@@ -81,21 +81,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') { // Handle the form.
 		$manu = $_POST['manufacturer'];
 		$axle = $_POST['axle'];
 	
-	
-		// Connect to Database
-//		$db = mysqli_connect('localhost', 'cst107','446287', 'ICS199Group13_dev');
-		// Create insert query
 		$query = "insert into ITEM (name, AXLE_id, MATERIAL_id, SHAPE_id, price, image, color, manufacturer, description)
 		values('$name', '$axle', '$mat', '$shape', CAST('$price' AS DECIMAL(5,2)), '$pic', '$color', '$manu', '$desc');";
-		//NOW()
-		// Run insert query
 		if (@mysqli_query($dbc, $query)) {
 			?>
 			<p><h3>The product "<?php echo "$name" ?>" has been successfully added.</h3></p>
 			<?php
 		} else {
 			print '<p>The product could not be added because:<br>' . mysqli_error($dbc) . '.</p>';
-		//	print '<p>The query being run was: ' . $query . '</p>'; 
 		}	
 	}
 }
@@ -155,42 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') { // Handle the form.
 				</tr>
 			</table>
 		</div>
-				
-<!--	
-	<p>Name: <input type="text" name="name" required maxlength="45" pattern=".*[A-Za-z].*"/></p>
-
-	<p>Description: <input type="textarea" name="description" /></p>
-
-	<p>Price: $ <input type="number" step=".01" name="price" required/></p>
-
-	<input type="hidden" name="MAX_FILE_SIZE" value="300000">
-	<p>Picture: <input type="file" name="picture" required/></p>
-
-	<p>Shape: <select name="shape">
-		<option value="1" selected>Butterfly</option>
-		<option value="2">Classic</option>
-		<option value="3">Imperial</option>
-		<option value="4">Modified</option>
-	</select> </p>
-
-	<p>Color: <input type="text" name="color" required/></p>
-
-	<p>Material: <select name="material">
-		<option value="1" selected>Metal</option>
-		<option value="2">Plastic</option>
-		<option value="3">Wood</option>
-	</select> </p>
-
-	<p>Manufacturer: <input type="text" name="manufacturer" required/></p>
-
-	<p>Axle: <select name="axle">
-		<option value="1" selected>Ball Bearing</option>
-		<option value="2">Fixed</option>
-		<option value="3">Transaxle</option>
-	</select> </p>
--->
 		<input type="submit" value="Submit" />
-
 	</form>
 </div>
 <?php include('footer.php');?>
