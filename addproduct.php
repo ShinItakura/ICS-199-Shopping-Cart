@@ -1,9 +1,12 @@
 <?php
-//	session_start();
-	// If not 'admin', redirect
-
+session_start(); //start session
+if ($_SESSION['role'] != 'admin') {
+	header('Location: login.php');
+	die();
+}
 ?>
 
+<html>
 <head>
 	<title>Add Product</title>
 	<style>
@@ -25,10 +28,7 @@
 <?php
 //header.php ends head tag and starts body tag
 	include('header.php');
-	if ($_SESSION['role'] != 'admin') {
-		header('Location: login.php');
-		die();
-	}
+
 ?>
 	<h2>Add a Product</h2>
 <?php
