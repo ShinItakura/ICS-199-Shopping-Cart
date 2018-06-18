@@ -1,6 +1,5 @@
-table {
-	width: 50%;
-}
+table.view {
+
 
 th {
 	text-align: center;
@@ -9,7 +8,6 @@ th {
 
 tr.blank_row {
 	height: 10px !important;
-    background-color: red;
 }
 
 td {
@@ -25,4 +23,5 @@ td.product {
 
 td.total {
 	text-align: right;
+}
 }

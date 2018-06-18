@@ -1,6 +1,10 @@
 <?php
 session_start(); //start session
-include("mysqli_connect.php");
+if (!isset($_SESSION['logged_in'])) {	// if not logged in, redirect to login.php
+	$_SESSION["camefromcart"] = true;
+	header('Location: login.php');
+}
+
 setlocale(LC_MONETARY,"en_US"); // US national format (see : http://php.net/money_format)
 
 $userid = $_SESSION["userid"];		// Get userid from session
@@ -49,8 +53,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {	// If GET processed
 }
 ?>
 
-<?php include('header.php');?>
-
 <head>
 <title>Review Your Cart Before Buying</title>
 <link rel="stylesheet" href="style/tablestyle.css">
@@ -62,26 +64,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {	// If GET processed
 			document.getElementById(decid).href = "view_cart.php?case=rem&id="+id;
 		}
 	}
-</script>
-</head>
+</script>	
+<?php	
+//header.php ends head tag and starts body tag
+include('header.php');
 
-<body>
+?>
+
 <h3 style="text-align:center">Review Your Cart Before Buying</h3>
 
 <?php
-
 $getItems = "SELECT i.id, i.name, i.price, c.quantity FROM ITEM i INNER JOIN CART c ON i.id = c.ITEM_id WHERE USER_id=$userid;";
 $result = mysqli_query($dbc, $getItems);	// Get items from database
 if (mysqli_num_rows($result) != 0) {			// Check if cart is empty
 ?>
 
 <!--	<form action='view_cart.php' method='GET'>-->
-	<table align="center">
+	<table class="view" align="center">
 <!--	<th>id</th>	-->
 	<th>Product</th>
 	<th>Price</th>
 <!--		<th>Decrease</th>-->
-	<th colspan="3">Quantity</th>
+	<th colspan="3" style="text-align:center;">Quantity</th>
 <!--		<th>Increase</th>-->
 	<th>Remove</th>
 	
