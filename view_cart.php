@@ -148,7 +148,8 @@ if (mysqli_num_rows($result) != 0) {			// Check if cart is empty
 					data-description="Pay using Stripe"
 					data-amount="$total * 100"
 					data-locale="auto"
-					data-currency="cad">
+          data-currency="cad"
+          data-panel-label="Pay $<?php echo $total;?>">
 				</script>
 			</form>	
 		<td>
