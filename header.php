@@ -84,11 +84,13 @@ $(document).ready(function(){
 	
 	<!-- container -->
 	<div class="d"><img src="images/YoYo_LOGO_4.jpg"></div>   
-	   <div class="e">
-	   <?php
-
-       $query3 = "SELECT fname,lname,role FROM USER WHERE id = {$_SESSION['userid']}";
-	   $result2=mysqli_query($dbc, $query3);
+		<div class="e">
+		<?php
+		if (!isset($_SESSION['userid'])) {
+			echo "<p class='f'> Welcome Guest</p>";
+		} else {
+		$query3 = "SELECT fname,lname,role FROM USER WHERE id = {$_SESSION['userid']}";
+		$result2=mysqli_query($dbc, $query3);
 
 		$test = mysqli_fetch_array($result2);
 		$username = $test['fname'];
@@ -96,6 +98,7 @@ $(document).ready(function(){
 		$userrole = $test['role'];
 		echo "<p class='f'> Welcome $userrole: $username $username2</p>";
 		echo "<p class='f'><a href='user.php' style='color:#ffffff';>&ensp;Go to your account page</a></p>";	
+		}
         ?>
 	   </div>	   	
 	<?php include('nav.php'); ?>
