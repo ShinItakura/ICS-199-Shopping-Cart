@@ -123,7 +123,6 @@ include('header.php');
     </script>
     </span>
     </div>
-</body>
 <?php
 include('footer.php');
 ?>

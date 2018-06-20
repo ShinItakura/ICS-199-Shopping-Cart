@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {	// If GET processed
 	}	
 }
 ?>
-
+<html>
 <head>
 <title>Review Your Cart Before Buying</title>
 <link rel="stylesheet" href="style/tablestyle.css">
@@ -120,19 +120,23 @@ if (mysqli_num_rows($result) != 0) {			// Check if cart is empty
 	?>
 	
 	<tr>
+		<!-- Display subtotal -->
 		<td class="total">Subtotal: </td>
 		<td> <?php echo number_format($subtotal,2, '.', ''); ?> </td>
 	</tr>
 	<tr>
+		<!-- Display taxes -->
 		<td class="total">Tax: </td>
 		<td> <?php echo $tax ?> </td>	
 	</tr>
 	<tr>
+		<!-- Display Total -->
 		<td class="total">Total: </td>
 		<td> <?php echo $total ?> </td>		
 		<td colspan="3"></td>
 		<td><a href="view_cart.php?case=emp" class="btn btn-default">Empty Cart</a></td>
 	</tr>
+		<!-- Display blank row -->
 	<tr class="blank_row">
 		<td colspan="6"><br> </td>
 	</tr>
@@ -154,13 +158,12 @@ if (mysqli_num_rows($result) != 0) {			// Check if cart is empty
 		<td>
 	</tr>
 	</table>
-<!--	</form>-->
 	<br>
 
 
 
 <?php
-} else {
+} else {	// Cart is empty
 	echo "<h3>Your Cart is empty.</h3>";
 	echo "<h4>Please return to the <a href='index.php'>shop</a> to add products to your cart.";
 } 
