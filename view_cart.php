@@ -128,7 +128,7 @@ if (mysqli_num_rows($result) != 0) {			// Check if cart is empty
 		<td> <?php echo $tax ?> </td>	
 	</tr>
 	<tr>
-		<td class="total">Subtotal: </td>
+		<td class="total">Total: </td>
 		<td> <?php echo $total ?> </td>		
 		<td colspan="3"></td>
 		<td><a href="view_cart.php?case=emp" class="btn btn-default">Empty Cart</a></td>
@@ -148,8 +148,7 @@ if (mysqli_num_rows($result) != 0) {			// Check if cart is empty
 					data-description="Pay using Stripe"
 					data-amount="$total * 100"
 					data-locale="auto"
-          data-currency="cad"
-          data-panel-label="Pay $<?php echo $total;?>">
+					data-currency="cad">
 				</script>
 			</form>	
 		<td>
