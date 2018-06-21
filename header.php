@@ -96,8 +96,8 @@ $(document).ready(function(){
 		$username = $test['fname'];
 		$username2 = $test['lname'];
 		$userrole = $test['role'];
-		echo "<p class='f'> Welcome $userrole: $username $username2</p>";
-		echo "<p class='f'><a href='user.php' style='color:#ffffff';>&ensp;Go to your account page</a></p>";	
+		echo "<p class='f'> Welcome $userrole: $username $username2 </p>";
+		echo "<p class='f'><a href='user.php' style='color:#ffffff';>Go to your account page</a></p>";	
 		}
         ?>
 	   </div>	   	
