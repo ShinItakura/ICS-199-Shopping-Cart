@@ -4,10 +4,8 @@
   <title>Checkout</title>
 </head>
 <?php
-  include('header.php');
   include('mysqli_connect.php');
   session_start();
-  ini_set('display_errors',1);
   $userid = $_SESSION['userid'];
   $query = "SELECT i.id, i.price, c.quantity FROM ITEM i 
     JOIN CART c ON i.id = c.ITEM_id 
@@ -34,7 +32,7 @@
       'currency' => 'cad'
   ));
   $total_str = number_format($total, 2, '.', '');
-  print "<h3>Successfully Charged $$total_str</h3>";
+//  print "<h3>Successfully Charged $$total_str</h3>";
 
   $datetime = date("Y-m-d H:i:s");
   $query = "INSERT INTO PURCHASE (USER_id, orderDate, total) VALUES ($userid, '$datetime', $total);
@@ -123,6 +121,9 @@
   // Empty the cart after the order is done
   $query = "DELETE FROM CART WHERE USER_id = $userid;";
   mysqli_query($dbc, $query);
-
+  
+  // Content displayed to page
+  include('header.php');
+  print "<h3>Successfully Charged $$total_str</h3>";
   include('footer.php');
 ?>

@@ -86,18 +86,23 @@ $(document).ready(function(){
 	<div class="d"><img src="images/YoYo_LOGO_4.jpg"></div>   
 		<div class="e">
 		<?php
-		if (!isset($_SESSION['userid'])) {
+		if (!isset($_SESSION['userid'])) {	// Not logged in
 			echo "<p class='f'> Welcome Guest</p>";
-		} else {
-		$query3 = "SELECT fname,lname,role FROM USER WHERE id = {$_SESSION['userid']}";
-		$result2=mysqli_query($dbc, $query3);
-
-		$test = mysqli_fetch_array($result2);
-		$username = $test['fname'];
-		$username2 = $test['lname'];
-		$userrole = $test['role'];
-		echo "<p class='f'> Welcome $userrole: $username $username2 </p>";
-		echo "<p class='f'><a href='user.php' style='color:#ffffff';>Go to your account page</a></p>";	
+		} else {		//Logged in
+			$query3 = "SELECT fname,lname,role FROM USER WHERE id = {$_SESSION['userid']}";
+			$result2=mysqli_query($dbc, $query3);
+	
+			$test = mysqli_fetch_array($result2);
+			$username = $test['fname'];
+			$username2 = $test['lname'];
+			$userrole = $test['role'];
+			if ($userrole == "customer") {	// Role is customer
+				echo "<p class='f'> Welcome Customer: $username $username2 </p>";
+				echo "<p class='f'><a href='user.php' style='color:#ffffff';>Go to your Account Page</a></p>";	
+			} else {			// Role is Administrator
+				echo "<p class='f'> Welcome Administrator: $username $username2 </p>";
+				echo "<p class='f'><a href='addproduct.php' style='color:#ffffff';>Go to Add a Product</a></p>";	
+			}
 		}
         ?>
 	   </div>	   	

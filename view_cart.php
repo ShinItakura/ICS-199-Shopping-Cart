@@ -123,12 +123,12 @@ if (mysqli_num_rows($result) != 0) {			// Check if cart is empty
 	<tr>
 		<!-- Display subtotal -->
 		<td class="total">Subtotal: </td>
-		<td> <?php echo number_format($subtotal,2, '.', ''); ?> </td>
+		<td colspan="5"> <?php echo number_format($subtotal,2, '.', ''); ?> </td>
 	</tr>
 	<tr>
 		<!-- Display taxes -->
 		<td class="total">Tax: </td>
-		<td> <?php echo $tax ?> </td>	
+		<td colspan="5"> <?php echo $tax ?> </td>	
 	</tr>
 	<tr>
 		<!-- Display Total -->
@@ -156,7 +156,7 @@ if (mysqli_num_rows($result) != 0) {			// Check if cart is empty
 					data-currency="cad">
 				</script>
 			</form>	
-		<td>
+		</td>
 	</tr>
 	</table>
 	<br>
