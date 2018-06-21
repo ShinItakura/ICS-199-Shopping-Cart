@@ -1,5 +1,6 @@
 <?php
 session_start(); //start session
+include("mysqli_connect.php");	// conect to database
 if (!isset($_SESSION['logged_in'])) {	// if not logged in, redirect to login.php
 	$_SESSION["camefromcart"] = true;
 	header('Location: login.php');
